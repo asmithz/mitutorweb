@@ -4,7 +4,9 @@ import Navbar from './components/navegation/Navbar'
 import Inicio from './components/pages/Inicio'
 import Buscar from './components/pages/Buscar'
 import Login from './components/pages/Login'
+import SignUp from './components/pages/SignUp'
 import Bandeja from './components/pages/Bandeja'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
       <Router>
 	<Switch>
 	  <Route path='/Login' exact component={Login}/>
+	  <Route path='/SignUp' exact component={SignUp}/>
 	  <div>
 	    <Navbar />
 	    <Route path='/Inicio' exact component={Inicio}/>

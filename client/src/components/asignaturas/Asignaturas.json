@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "materia": "Matemática",
+        "ramo": "Cálculo Diferencial"
+    },
+    {
+        "id": 2,
+        "materia": "Matemática",
+        "ramo": "Cálculo Integral"
+    },
+    {
+        "id": 3,
+        "materia": "Matemática",
+        "ramo": "Ecuaciones Diferenciales"
+    },
+    {
+        "id": 4,
+        "materia": "Matemática",
+        "ramo": "Cálculo Vectorial"
+    },
+    {
+        "id": 5,
+        "materia": "Física",
+        "ramo": "Física I"
+    },
+    {
+        "id": 6,
+        "materia": "Física",
+        "ramo": "Física II"
+    },
+    {
+        "id": 7,
+        "materia": "Física",
+        "ramo": "Física III"
+    },
+    {
+        "id": 8,
+        "materia": "Física",
+        "ramo": "Física IV"
+    },
+    {
+        "id": 9,
+        "materia": "Informática",
+        "ramo": "Ingeniería de Requisitos"
+    },
+    {
+        "id": 10,
+        "materia": "Informática",
+        "ramo": "Estructura de Datos"
+    },
+    {
+        "id": 11,
+        "materia": "Informática",
+        "ramo": "Diseño Web"
+    }
+]

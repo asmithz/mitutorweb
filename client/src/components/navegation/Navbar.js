@@ -27,7 +27,7 @@ const Navbar = () => {
 	    </li>
 	    <li className="nav-item">
 	      <Link to="/Login">
-		  <button type="button" className="btn btn-primary" style={styles.navtext}>Login</button>
+		  <button type="button" className="btn btn-primary" style={styles.navtext}>Ingresar</button>
 	      </Link>
 	    </li>
 	  </ul>
