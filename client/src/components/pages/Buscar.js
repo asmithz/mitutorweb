@@ -20,6 +20,7 @@ const Asignaturas = (props) => {
 const Filtro = () => {
   return(
       <div className="filtro">
+      <h3>Filtro</h3>
       <Formik initialValues={{
             nombre: '',
             apellido: '',
@@ -74,10 +75,6 @@ const Tutor = () => {
 const Tutores = () => {
   return(
     <div className="plantilla-tutores">
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
         <Tutor />
         <Tutor />
         <Tutor />

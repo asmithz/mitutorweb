@@ -1,6 +1,8 @@
 .plantilla-buscar{
     display: grid;
     padding-top: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
     padding-bottom: 50px;
     grid-template-columns: 20% 78%;
     grid-template-rows: auto;
@@ -9,13 +11,20 @@
 }
 
 .filtro{
-    box-shadow: 2px 2px 3px 3px #888888;
     background: #f7f7f7;
     padding: 40px;
     padding-top: 50px;
+    position: sticky;
+    top: 80px;
+    border-radius: 5px;
     border-style: solid;
-    border-width: 1px;
-    border-color: #e7e7e7;
+    border-width: 2px;
+    border-color: #c0c0c0;
+}
+
+.filtro:hover{
+    box-shadow: 2px 2px 3px 3px #c0c0c0;
+    transition: all 0.2s ease;
 }
 
 .filtro-elemento{
@@ -26,17 +35,25 @@
 
 .plantilla-tutores{
     display: grid;
+    padding-left: 70px;
     grid-template-columns: auto auto auto;
     grid-gap: 20px;
 }
 
 .tutor{
-    box-shadow: 3px 3px #888888;
-    background: #ffffff;
-    width: 80%;
+    background: #f7f7f7;
+    width: 320px;
+    height: 400px;
     padding: 40px;
     padding-top: 80px;
+    border-radius: 5px;
     border-style: solid;
-    border-color: #e7e7e7;
+    border-width: 2px;
+    border-color: #c0c0c0;
     margin: auto;
+}
+
+.tutor:hover{
+    box-shadow: 2px 2px 3px 3px #c0c0c0;
+    transition: all 0.2s ease;
 }
