@@ -1,0 +1,14 @@
+.plantilla-form{
+    display: grid;
+}
+
+.form{
+    box-shadow: 3px 3px #888888;
+    background: #ffffff;
+    width: 20%;
+    padding: 40px;
+    padding-top: 50px;
+    border-style: solid;
+    border-color: #e7e7e7;
+    margin: auto;
+}

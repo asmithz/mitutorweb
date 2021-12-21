@@ -1,0 +1,36 @@
+.boton-eliminar{
+    background-color: #db1f48;
+    border-radius: 5px;
+    padding: 8px 18px;
+    color: white;
+    cursor: pointer;
+}
+
+.boton-eliminar:hover{
+    background-color: #af1033;
+}
+
+.boton-agregar{
+    background-color: #01949a;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.boton-agregar:hover{
+    background-color: #01787c;
+}
+
+
+.boton-siguiente{
+    background-color: #004369;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.boton-siguiente:hover{
+    background-color: #003757;
+}

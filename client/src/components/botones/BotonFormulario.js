@@ -1,3 +1,5 @@
+import './BotonFormulario.css' 
+
 const BotonFormulario = (props) => {
     let button = '';
     if(props.func == null){

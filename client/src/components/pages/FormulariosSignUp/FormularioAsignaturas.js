@@ -1,5 +1,5 @@
 import React from 'react';
-import {FieldArray } from 'formik';
+import { FieldArray } from 'formik';
 import BotonFormulario from '../../botones/BotonFormulario'
 import SelectAsignaturas from '../../asignaturas/SelectAsignaturas';
 
@@ -23,13 +23,13 @@ const FormularioAsignaturas = (props) => {
                                         i >= 0 && 
                                     <div>
                                         <label>Asignatura</label><SelectAsignaturas name={`asignaturas[${i}]`} /> 
-                                        <BotonFormulario className="btn btn-primary" value="Borrar" func={() => remove(i)}/>
+                                        <BotonFormulario className="boton-eliminar" value="-" func={() => remove(i)}/>
                                     </div>
                                     } 
                                 </div>
                             ))
                         }
-                        <BotonFormulario className="btn btn-primary" value="Agregar" func={() => push('')}/>
+                        <BotonFormulario className="boton-agregar" value="+" func={() => push('')}/>
                         </div>
                     )
                     }

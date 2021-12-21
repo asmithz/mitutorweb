@@ -4,6 +4,7 @@ import BotonFormulario from '../botones/BotonFormulario';
 import RadioFormulario from '../botones/RadioFormulario';
 import FormularioEstudiante from './FormulariosSignUp/FormularioEstudiante'
 import FormularioTutor from './FormulariosSignUp/FormularioTutor'
+import '../pages_css/Form.css'
 
 const validaciones = (values) => {
     const errors = {};
@@ -31,28 +32,31 @@ const SignUp = () => {
         setTipo(nuevo_tipo);
     }
 
-
     return(
         <div>
             <h1>Página crear cuenta</h1>
-            {tipo === '' && 
-            <Formik 
-                initialValues={{tipo:''}}
-                validate={validaciones}
-                onSubmit={(values => updateTipo(values.tipo))}
-            >
-                <Form>
-                    <RadioFormulario name="tipo" value="estudiante" label="Estudiante" />
-                    <br/>
-                    <RadioFormulario name="tipo" value="tutor" label="Tutor" />
-                    <br/>
-                    <ErrorMessage name="tipo" />
-                    <BotonFormulario className="btn btn-primary" name="boton" value="Siguiente"/>
-                </Form>
-            </Formik>
-            }
-            {tipo === 'tutor' && <FormularioTutor tipo={tipo}/>}
-            {tipo === 'estudiante' && <FormularioEstudiante tipo={tipo}/>}
+            <div className="plantilla-form">
+                {tipo === '' && 
+                <div className="form">
+                    <Formik 
+                        initialValues={{tipo:''}}
+                        validate={validaciones}
+                        onSubmit={(values => updateTipo(values.tipo))}
+                    >
+                        <Form>
+                            <RadioFormulario name="tipo" value="estudiante" label="Estudiante" />
+                            <br/>
+                            <RadioFormulario name="tipo" value="tutor" label="Tutor" />
+                            <br/>
+                            <ErrorMessage name="tipo" />
+                            <BotonFormulario className="boton-siguiente" name="boton" value="Siguiente"/>
+                        </Form>
+                    </Formik>
+                </div>
+                }
+                {tipo === 'tutor' && <FormularioTutor tipo={tipo}/>}
+                {tipo === 'estudiante' && <FormularioEstudiante tipo={tipo}/>}
+            </div>
         </div>
     );
 }

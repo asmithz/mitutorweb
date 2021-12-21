@@ -6,16 +6,7 @@ import asignaturas from '../asignaturas/Asignaturas.json';
 import CheckBox from '../botones/Checkbox';
 import BotonFormulario from '../botones/BotonFormulario';
 
-const Tutor = () => {
-
-}
-
-const Tutores = () => {
-  return(
-    <label></label>
-  );
-}
-
+/*Componente filtro de asignaturas(los checkbox)*/
 const Asignaturas = (props) => {
   const asignatura = asignaturas.filter((ramo) => ramo.materia === props.value).map((ramo) => 
           <CheckBox name={props.name} materia={props.value} key={ramo.id} value={ramo.ramo} /> 
@@ -25,13 +16,9 @@ const Asignaturas = (props) => {
       );
 }
 
-const Horario = () => {
-
-}
-
+/*Permite filtrar a los tutores*/
 const Filtro = () => {
   return(
-    <div className="plantilla-buscar">
       <div className="filtro">
       <Formik initialValues={{
             nombre: '',
@@ -73,15 +60,46 @@ const Filtro = () => {
         </Form>
       </Formik>
       </div>
+  );
+}
+
+const Tutor = () => {
+  return(
+    <div className="tutor">
+      <p>hola</p>
     </div>
   );
 }
 
+const Tutores = () => {
+  return(
+    <div className="plantilla-tutores">
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+        <Tutor />
+    </div>
+  );
+}
+
+/*Componente clase Buscar*/
 const Buscar = () => {
   return(
     <div>
       <h1>Buscar Tutor</h1>
-      <Filtro />
+      <div className="plantilla-buscar">
+        <Filtro />
+        <Tutores />
+      </div>
     </div>
   )
 }
