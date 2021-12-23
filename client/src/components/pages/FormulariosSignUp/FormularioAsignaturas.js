@@ -5,8 +5,8 @@ import SelectAsignaturas from '../../asignaturas/SelectAsignaturas';
 
 const FormularioAsignaturas = (props) => {
     return(
-        <div>
-            <label>{props.label}</label>
+        <>
+            <strong>{props.label}</strong>
             <FieldArray name={props.name} >
                 {/* se obtienen los metodos, valores y arreglo de FieldArray, o sea, de su funcion */}
                 {(fieldArrayProps) => {
@@ -14,28 +14,28 @@ const FormularioAsignaturas = (props) => {
                     const { values } = form;
                     const { asignaturas } = values;
                     return (
-                        <div>
+                        <>
                         {
                             // loop en el array e ir agregando
                             asignaturas.map((asignatura, i) => (
                                 <div key={i}>
                                     {
                                         i >= 0 && 
-                                    <div>
-                                        <label>Asignatura</label><SelectAsignaturas name={`asignaturas[${i}]`} /> 
-                                        <BotonFormulario className="boton-eliminar" value="-" func={() => remove(i)}/>
+                                    <div className="input-group">
+                                        <SelectAsignaturas name={`asignaturas[${i}]`} /> 
+                                        <BotonFormulario className="boton-eliminar" value="-" func={() => remove(i)} />
                                     </div>
                                     } 
                                 </div>
                             ))
                         }
                         <BotonFormulario className="boton-agregar" value="+" func={() => push('')}/>
-                        </div>
+                        </>
                     )
                     }
                 } 
             </FieldArray>
-        </div>
+        </>
     );
 }
 

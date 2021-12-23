@@ -1,6 +1,7 @@
 import React from 'react';
 import { useField } from 'formik';
 import asignaturas from './Asignaturas.json'
+import BotonFormulario from '../botones/BotonFormulario';
 
 // <option> mostrar ramo por grupo
 const OpcionAsignatura = (props) => {
@@ -27,12 +28,14 @@ const OptGroupAsignatura = (props) => {
 const SelectAsignaturas = (props) => {
     const [field] = useField(props);
     return(
-        <select {...field} {...props}>
+        <>
+        <select className="form-select form-select-sm" {...field} {...props}>
             <option key="optgroup" label="Seleccione"></option>
             <OptGroupAsignatura name="Matemática"/>
             <OptGroupAsignatura name="Física"/>
             <OptGroupAsignatura name="Informática"/>
         </select>
+        </>
     );
 }
 

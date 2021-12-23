@@ -10,7 +10,7 @@ const validaciones = () => {
 
 const FormularioEstudiante = (props) => {
     return(
-        <div className="form">
+        <div>
             <Formik
                 initialValues={{
                     tipo: props.tipo,
@@ -25,38 +25,52 @@ const FormularioEstudiante = (props) => {
                 onSubmit={values => console.log(values)}
         >
             <Form>
-                    <h4>Ingrese sus datos</h4>
-                <label>Nombre</label>
-                    <Field name="nombre" type="text"/>
-                    <ErrorMessage name="nombre"/>
-                    <br/>
-                <label>Apellido</label>
-                    <Field name="apellido" type="text"/>
-                    <ErrorMessage name="apellido"/>
-                    <br/>
-                <label>Rut</label>
-                    <Field name="rut" type="text"/>
-                    <ErrorMessage name="rut"/>
-                    <br/>
-                <label>Edad</label>
-                    <Field name="edad" type="text"/>
-                    <ErrorMessage name="edad"/>
-                    <br/>
-                <SelectFormulario name="sexo" label="Sexo">
-                    <option>Seleccione</option>
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
-                    <option value="s_otro">Otro</option>
-                    </SelectFormulario>
-                <label>Establecimiento Educacional</label>
-                    <Field name="establecimiento" type="text"/>
-                    <ErrorMessage name="establecimiento"/>
-                    <br/>
-                <label>Email</label>
-                    <Field name="email" type="email"/>
-                    <ErrorMessage name="email"/>
-                    <br/>
-                    <BotonFormulario className="boton-siguiente" nombre="boton" value="Registrar"/>
+                <div className="form-estudiante">
+                    <div>
+                        <h4>Rellene el formulario</h4>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Nombre" className="form-control" id="floatingNombre" name="nombre" type="text"/>
+                        <label for="floatingNombre">Nombre</label>
+                        <ErrorMessage name="nombre"/>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Apellido" className="form-control" id="floatingApellido" name="apellido" type="text"/>
+                        <label for="floatingApellido">Apellido</label>
+                        <ErrorMessage name="apellido"/>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Rut" className="form-control" id="floatingRut" name="rut" type="text"/>
+                        <label for="floatingRut">Rut</label>
+                        <ErrorMessage name="rut"/>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Edad" className="form-control" id="floatingEdad" name="edad" type="text"/>
+                        <label for="floatingEdad">Edad</label>
+                        <ErrorMessage name="edad"/>
+                    </div>
+                    <div class="form-floating">
+                        <SelectFormulario className="form-select" name="sexo">
+                            <option>Seleccione sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="s_otro">Otro</option>
+                        </SelectFormulario>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Establecimiento Educacional" className="form-control" id="floatingEstablecimiento" name="establecimiento" type="text"/>
+                        <label for="floatingEstablecimiento">Establecimiento Educacional</label>
+                        <ErrorMessage name="establecimiento"/>
+                    </div>
+                    <div className="form-floating">
+                        <Field placeholder="Email" className="form-control" id="floatingEmail" name="email" type="email"/>
+                        <label for="floatingEmail">Email</label>
+                        <ErrorMessage name="email"/>
+                    </div>
+                    <div>
+                        <BotonFormulario className="boton-siguiente" nombre="boton" value="Registrar"/>
+                    </div>
+                </div>
             </Form>
         </Formik> 
        </div>

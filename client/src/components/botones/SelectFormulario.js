@@ -5,7 +5,7 @@ const SelectFormulario = ({ label, ...props }) => {
     return(
         <div>
             <label>{label}</label>
-            <select {...field} {...props} />
+            <select className="form-select form-select-sm" {...field} {...props} />
         </div>
     );
 }

@@ -27,7 +27,6 @@ const FormularioTutor = (props) => {
     return(
         <div>
             {displayHorario === false &&
-            <div className="form">
                 <Formik
                     initialValues={{
                         tipo: props.tipo, nombre: '', 
@@ -40,32 +39,44 @@ const FormularioTutor = (props) => {
                     onSubmit={values => obtenerDatos(values)}
                 >
                     <Form>
-                        <h4>Ingrese sus datos</h4>
-                        <label>Nombre</label>
-                            <Field name="nombre" type="text"/>
-                            <ErrorMessage name="nombre"/>
-                            <br/>
-                        <label>Apellido</label>
-                            <Field name="apellido" type="text"/>
-                            <ErrorMessage name="apellido"/>
-                            <br/>
-                        <label>Rut</label>
-                            <Field name="rut" type="text"/>
-                            <ErrorMessage name="rut"/>
-                            <br/>
-                        <label>Edad</label>
-                            <Field name="edad" type="text"/>
-                            <ErrorMessage name="edad"/>
-                            <br/>
-                        <label>Email</label>
-                            <Field name="email" type="email"/>
-                            <ErrorMessage name="email"/>
-                            <br/>
-                            <FormularioAsignaturas name="asignaturas" label="Agregue las asignaturas que realiza" />
-                            <BotonFormulario className="boton-siguiente" name="boton" value="Siguiente"/>
+                        <div className="form-tutor">
+                            <div>
+                                <h4>Rellene el formulario</h4>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Nombre" className="form-control" id="floatingNombre" name="nombre" type="text"/>
+                                <label for="floatingNombre">Nombre</label>
+                                <ErrorMessage name="nombre"/>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Apellido" className="form-control" id="floatingApellido" name="apellido" type="text"/>
+                                <label for="floatingApellido">Apellido</label>
+                                <ErrorMessage name="apellido"/>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Rut" className="form-control" id="floatingRut" name="rut" type="text"/>
+                                <label for="floatingRut">Rut</label>
+                                <ErrorMessage name="rut"/>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Edad" className="form-control" id="floatingEdad" name="edad" type="text"/>
+                                <label for="floatingEdad">Edad</label>
+                                <ErrorMessage name="edad"/>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Email" className="form-control" id="floatingEmail" name="email" type="email"/>
+                                <label for="floatingEmail">Email</label>
+                                <ErrorMessage name="email"/>
+                            </div>
+                            <div>
+                                <FormularioAsignaturas name="asignaturas" label="Agregue las asignaturas que realiza" />
+                            </div>
+                            <div>
+                                <BotonFormulario className="boton-siguiente" name="boton" value="Siguiente"/>
+                            </div>
+                        </div>
                     </Form>
                 </Formik> 
-            </div>
                 }
                 {displayHorario === true && 
                     <Horario name="horario" accion="registrar" datos={datos_tutor}/>

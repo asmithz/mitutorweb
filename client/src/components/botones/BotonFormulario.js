@@ -9,7 +9,7 @@ const BotonFormulario = (props) => {
         button =  <button className={props.className} type="button" onClick={props.func}>{props.value}</button>
     }
     return(
-        <div>{button}</div>
+        <>{button}</>
     );
 }
 

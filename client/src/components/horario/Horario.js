@@ -161,29 +161,31 @@ const Horario = (props) => {
     /*Registra al tutor con su horario */
     const registrarHorarioTutor = () => {
         return(
-            <Formik
-                initialValues={{
-                    datos: props.datos,
-                    horario: horario
-                }}
-                onSubmit={values => alert(JSON.stringify(values, null, 4))}
-            >
-                <Form>
-                    <BotonFormulario className="boton-siguiente" name="boton" value="Registrar" />
-                </Form>
-            </Formik>
+            <div>
+                <Formik
+                    initialValues={{
+                        datos: props.datos,
+                        horario: horario
+                    }}
+                    onSubmit={values => alert(JSON.stringify(values, null, 4))}
+                >
+                    <Form>
+                        <BotonFormulario className="boton-siguiente" name="boton" value="Registrar" />
+                    </Form>
+                </Formik>
+            </div>
         );
     }
 
     return(
-        <div>
+        <>
             {props.accion === "registrar" && 
-            <div>
+            <>
                 {mostrarHorario()}
                 {registrarHorarioTutor()}
-            </div>
+            </>
             }
-        </div>
+        </>
     );
 }
 

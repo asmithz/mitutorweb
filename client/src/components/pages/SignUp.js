@@ -34,29 +34,33 @@ const SignUp = () => {
 
     return(
         <div>
-            <h1>Página crear cuenta</h1>
-            <div className="plantilla-form">
-                {tipo === '' && 
-                <div className="form">
-                    <Formik 
-                        initialValues={{tipo:''}}
-                        validate={validaciones}
-                        onSubmit={(values => updateTipo(values.tipo))}
-                    >
-                        <Form>
-                            <RadioFormulario name="tipo" value="estudiante" label="Estudiante" />
-                            <br/>
-                            <RadioFormulario name="tipo" value="tutor" label="Tutor" />
-                            <br/>
-                            <ErrorMessage name="tipo" />
-                            <BotonFormulario className="boton-siguiente" name="boton" value="Siguiente"/>
-                        </Form>
-                    </Formik>
-                </div>
-                }
-                {tipo === 'tutor' && <FormularioTutor tipo={tipo}/>}
-                {tipo === 'estudiante' && <FormularioEstudiante tipo={tipo}/>}
-            </div>
+            {tipo === '' && 
+                <Formik 
+                    initialValues={{tipo:''}}
+                    validate={validaciones}
+                    onSubmit={(values => updateTipo(values.tipo))}
+                >
+                    <Form> 
+                            <div className="form-tipo-usuario">
+                                <div className="form-tipo-usuario-titulo">
+                                    <h3>Es usted, un estudiante o un tutor?</h3>
+                                </div>
+                                <div className="form-tipo-usuario-opcion">
+                                    <RadioFormulario name="tipo" value="estudiante" label="Soy un estudiante" />
+                                </div>
+                                <div className="form-tipo-usuario-opcion">
+                                    <RadioFormulario name="tipo" value="tutor" label="Soy un tutor" />
+                                </div>
+                                <div>
+                                    <ErrorMessage name="tipo" />
+                                    <BotonFormulario className="boton-siguiente" name="boton" value="Siguiente"/>
+                                </div>
+                            </div>
+                    </Form>
+                </Formik>
+            }
+            {tipo === 'tutor' && <FormularioTutor tipo={tipo}/>}
+            {tipo === 'estudiante' && <FormularioEstudiante tipo={tipo}/>}
         </div>
     );
 }

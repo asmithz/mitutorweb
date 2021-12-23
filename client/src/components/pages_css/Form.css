@@ -1,19 +1,85 @@
-.plantilla-form{
+.form-tipo-usuario{
     display: grid;
-}
-
-.form{
-    background: #f7f7f7;
-    width: 20%;
-    padding: 40px;
-    padding-top: 50px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: auto;
+    grid-template-rows: 150px 80px 80px 80px;
+    background: #ffffff;
+    box-shadow: 2px 2px 3px 3px #e9e9e9;
+    padding-top: 100px;
+    padding-bottom: 100px; 
+    height: 600px; 
+    width: 500px;
     border-radius: 5px;
     border-style: solid;
     border-color: #c0c0c0;
-    margin: auto;
 }
 
-.form:hover{
+.form-tipo-usuario:hover{
+    box-shadow: 2px 2px 3px 3px #c0c0c0;
+    transition: all 0.2s ease;
+}
+
+.form-tipo-usuario-titulo{
+    padding-right: 50px;
+    padding-left: 50px;
+    text-align: left;
+}
+
+.form-tipo-usuario-opcion{
+    padding-right: 50px;
+    padding-left: 80px;
+    text-align: left;
+}
+
+.form-estudiante{
+    display: grid;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: auto;
+    grid-template-rows: 80px 80px 80px 80px 80px 80px 80px 80px 80px;
+    background: #ffffff;
+    box-shadow: 2px 2px 3px 3px #e9e9e9;
+    padding-top: 100px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 100px; 
+    height: 850px; 
+    width: 500px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #c0c0c0;
+}
+
+.form-estudiante:hover{
+    box-shadow: 2px 2px 3px 3px #c0c0c0;
+    transition: all 0.2s ease;
+}
+
+.form-tutor{
+    display: grid;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: auto;
+    grid-template-rows: 80px 80px 80px 80px 80px 80px auto 80px;
+    background: #ffffff;
+    box-shadow: 2px 2px 3px 3px #e9e9e9;
+    padding-top: 100px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 100px; 
+    height: auto; 
+    width: 500px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #c0c0c0;
+}
+
+.form-tutor:hover{
     box-shadow: 2px 2px 3px 3px #c0c0c0;
     transition: all 0.2s ease;
 }

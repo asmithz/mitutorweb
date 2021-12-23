@@ -1,0 +1,5 @@
+.asignatura{
+    display: grid;
+    grid-template-columns: 75% auto;
+    grid-template-rows: auto;
+}
