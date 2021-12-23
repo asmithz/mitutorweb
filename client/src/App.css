@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-   
-  
 }
 
 body{  
@@ -11,6 +9,5 @@ body{
   background: linear-gradient(180deg, rgba(1,148,154,0.049439844297093805) 0%, rgba(0,67,105,0.04103648295255602) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#01949a",endColorstr="#004369",GradientType=1); 
   background-size: cover;
-  background-repeat: no-repeat;
 }
 

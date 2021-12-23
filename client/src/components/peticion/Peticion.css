@@ -1,4 +1,6 @@
 .modulo-peticion{
+    display: grid;
+    grid-template-columns: 100px 250px 300px 250px;
     background: #f7f7f7;
     width: 900px;
     height: 80px;
@@ -12,4 +14,14 @@
 .modulo-peticion:hover{
     box-shadow: 2px 2px 3px 3px #c0c0c0;
     transition: all 0.2s ease;
+}
+
+.elemento-peticion{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.botones-peticion{
+    display: grid;
+    grid-template-columns: 40% auto;
 }

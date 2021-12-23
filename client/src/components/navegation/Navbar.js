@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 const styles = {
   navbar: {
     backgroundColor: '#004369',
+	position: 'fixed',
+	width: '100%',
     color: '#fff',
   },
   navtext: {

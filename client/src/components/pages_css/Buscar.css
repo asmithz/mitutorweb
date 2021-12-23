@@ -12,6 +12,8 @@
 
 .filtro{
     background: #f7f7f7;
+    width: 350px;
+    height: 600px;
     padding: 40px;
     padding-top: 50px;
     position: sticky;
