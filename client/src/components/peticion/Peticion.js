@@ -1,8 +1,10 @@
+import '../peticion/Peticion.css'
+
 const Peticion = () => {
     return (
-        <div>
-
-        </div>
+            <div className="modulo-peticion">
+                <p>Peticion</p>
+            </div>
     );
 
 }

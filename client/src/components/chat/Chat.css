@@ -1,4 +1,4 @@
-.modulo-peticion{
+.modulo-chat{
     background: #f7f7f7;
     width: 900px;
     height: 80px;
@@ -9,7 +9,7 @@
     margin: auto;
 }
 
-.modulo-peticion:hover{
+.modulo-chat:hover{
     box-shadow: 2px 2px 3px 3px #c0c0c0;
     transition: all 0.2s ease;
 }
