@@ -1,6 +1,7 @@
 import { Formik, Form } from 'formik';
 import React, { useState } from 'react';
 import BotonFormulario from '../botones/BotonFormulario';
+import { FaCheck, FaWindowClose, FaPencilAlt } from 'react-icons/fa'
 import './Horario.css';
 
 const horas = [
@@ -67,9 +68,9 @@ const Bloques = (props) => {
                             estado={seleccion ? 'true':'false'} 
                             onClick={seleccionar}>
                                 {seleccion ? 
-                                    <p>&#9745;</p>
+                                    <FaPencilAlt />
                                     : 
-                                    <p>&#9744;</p>
+                                    <FaWindowClose />
                                 }
                                 {seleccion ?
                                     props.check(props.dia, props.hora)
@@ -153,6 +154,7 @@ const Horario = (props) => {
     const mostrarHorario = () => {
         return(
             <div className="grid-card">
+                <h4>{props.titulo}</h4>
                 <Dias check={checkHora} uncheck={uncheckHora} horario={horario}/>
             </div>
         );

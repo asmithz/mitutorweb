@@ -14,7 +14,10 @@ const Chat = () => {
                     <span>Comunicación Asíncrona</span>
                 </div>
                 <div className="elemento-chat">
-                    <BotonFormulario className="boton-aceptar" name="boton" value="Abrir chat"/>
+                    <div className="botones-chat">
+                        <BotonFormulario className="boton-aceptar" name="boton" value="Abrir"/>
+                        <BotonFormulario className="boton-rechazar" name="boton" value="Eliminar"/>
+                    </div>
                 </div>
             </div>
     );

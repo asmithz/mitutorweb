@@ -5,6 +5,7 @@ import FormularioAsignaturas from './FormulariosSignUp/FormularioAsignaturas';
 import asignaturas from '../asignaturas/Asignaturas.json';
 import CheckBox from '../botones/Checkbox';
 import BotonFormulario from '../botones/BotonFormulario';
+import missing_picture from '../../img/missing_picture.png'
 
 /*Componente filtro de asignaturas(los checkbox)*/
 const Asignaturas = (props) => {
@@ -64,10 +65,25 @@ const Filtro = () => {
   );
 }
 
-const Tutor = () => {
+const TarjetaTutor = () => {
   return(
-    <div className="tutor">
-      <p>hola</p>
+    <div className="tarjeta-tutor">
+      <div className="tarjeta-tutor-imagen">
+        <img src={missing_picture}/>
+      </div>
+      <div className="tarjeta-tutor-texto">
+        <h5>Ariel Smith</h5>
+      </div>
+      <div className="tarjeta-tutor-texto">
+        <h6>Calificación: 5.0</h6>
+      </div>
+      <div className="tarjeta-tutor-botones">
+        <BotonFormulario className="boton-agregar" value="Ver Horario" />
+        <BotonFormulario className="boton-agregar" value="Asignaturas" />
+      </div>
+      <div className="tarjeta-tutor-solicitud"> 
+        <BotonFormulario className="boton-eliminar" value="Solicitar Tutoria"/>
+      </div>
     </div>
   );
 }
@@ -75,15 +91,13 @@ const Tutor = () => {
 const Tutores = () => {
   return(
     <div className="plantilla-tutores">
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
-        <Tutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
+      <TarjetaTutor />
     </div>
   );
 }
@@ -92,6 +106,7 @@ const Tutores = () => {
 const Buscar = () => {
   return(
     <div>
+      <h1>Buscar Tutor</h1>
       <h1>Buscar Tutor</h1>
       <div className="plantilla-buscar">
         <Filtro />

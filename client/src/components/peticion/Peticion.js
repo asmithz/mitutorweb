@@ -1,5 +1,5 @@
 import '../peticion/Peticion.css'
-import BotonFormulario from '../botones/BotonFormulario'
+import BotonFormulario from '../botones/BotonFormulario';
 
 const Peticion = () => {
     return (

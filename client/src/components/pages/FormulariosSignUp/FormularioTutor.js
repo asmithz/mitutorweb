@@ -79,7 +79,9 @@ const FormularioTutor = (props) => {
                 </Formik> 
                 }
                 {displayHorario === true && 
-                    <Horario name="horario" accion="registrar" datos={datos_tutor}/>
+                <div>
+                    <Horario name="horario" accion="registrar" datos={datos_tutor} titulo="Escoja su horario"/>
+                </div>
                 }
 
        </div>

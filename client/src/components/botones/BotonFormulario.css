@@ -1,7 +1,7 @@
 .boton-eliminar{
     background-color: #db1f48;
     border-radius: 5px;
-    padding: 8px 18px;
+    padding: 8px 16px;
     color: white;
     cursor: pointer;
 }
@@ -13,7 +13,7 @@
 .boton-rechazar{
     background-color: #db1f48;
     border-radius: 5px;
-    padding: 8px 18px;
+    padding: 8px 16px;
     color: white;
     cursor: pointer;
 }
