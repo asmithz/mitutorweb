@@ -187,6 +187,11 @@ const Horario = (props) => {
                 {registrarHorarioTutor()}
             </>
             }
+            {props.accion === "buscar-horario" &&
+            <>
+                {mostrarHorario()}
+            </>
+            }
         </>
     );
 }
