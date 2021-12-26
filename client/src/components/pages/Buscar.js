@@ -23,54 +23,7 @@ const Asignaturas = (props) => {
 /*Permite filtrar a los tutores*/
 const Filtro = () => {
   return(
-      <div className="filtro">
-      <h3>Filtro</h3>
-      <Formik initialValues={{
-            nombre: '',
-            apellido: '',
-            asignaturas: '',
-            calificacion: '',
-            horario: [''],
-          }}
-          onSubmit={values => console.log(values)} 
-        >
-        <Form>
-            <div className="filtro-elemento">
-              <h5>Nombre</h5>
-              <Field name="nombre" type="text" />
-              <ErrorMessage name="nombre"/>
-              <br/>
-            </div>
-            <div className="filtro-elemento">
-              <h5>Apellido</h5>
-              <Field name="apellido" type="text" />
-              <ErrorMessage name="apellido"/>
-              <br/>
-            </div>
-            <div className="filtro-elemento">
-              <h5>Matemática</h5>
-              <div className="filtro-elemento">
-                <Asignaturas name="asignaturas" value="Matemática"/>
-              </div>
-              <h5>Física</h5>
-              <div className="filtro-elemento">
-                <Asignaturas name="asignaturas" value="Física"/>
-              </div>
-              <h5>Informática</h5>
-              <div className="filtro-elemento">
-                <Asignaturas name="asignaturas" value="Informática"/>
-              </div>
-            </div>
-            <BotonFormulario className="btn btn-primary" nombre="boton" value="Buscar"/>
-        </Form>
-      </Formik>
-      </div>
-  );
-}
-
-const Filtro2 = () => {
-  return(
-    <div>
+    <div className="menu-filtro">
       <Formik initialValues={{
             nombre: '',
             apellido: '',
@@ -80,7 +33,7 @@ const Filtro2 = () => {
           }}
           onSubmit={values => console.log(values)} >
         <Form>
-          <div className="filtro2">
+          <div className="filtro">
             <div className="form-floating">
               <Field placeholder="Nombre" className="form-control" id="floatingNombre" name="nombre" type="text"/>
               <label for="floatingNombre">Nombre</label>
@@ -92,7 +45,6 @@ const Filtro2 = () => {
               <ErrorMessage name="apellido"/>
             </div>
             <div >
-              <div>
                 <Dropdown tipo="checkboxes" value="Asignaturas" 
                   component={
                     <div>
@@ -104,7 +56,6 @@ const Filtro2 = () => {
                       <Asignaturas name="asignaturas" value="Física"/>
                     </div>
                   }/>
-              </div>
             </div>
             <div> 
               {
@@ -165,8 +116,6 @@ const Buscar = () => {
   return(
     <div>
       <h1>Buscar Tutor</h1>
-      <h1>Buscar Tutor</h1>
-      <Filtro2 />
       <div className="plantilla-buscar">
         <Filtro />
         <Tutores />
