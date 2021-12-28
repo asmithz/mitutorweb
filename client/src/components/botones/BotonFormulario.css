@@ -57,3 +57,14 @@
 .boton-siguiente:hover{
     background-color: #003757;
 }
+
+.boton-editar{
+    background-color: #003669;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: white;
+}
+
+.boton-editar:hover{
+    background-color: #003669;
+}

@@ -28,6 +28,9 @@ const Navbar = () => {
 				<Link className="nav-link" to="/Bandeja" style={styles.navtext}>Bandeja de peticiones</Link>
 				</li>
 				<li className="nav-item">
+				<Link className="nav-link" to="/Perfil" style={styles.navtext}>Mi perfil</Link>
+				</li>
+				<li className="nav-item">
 				<Link to="/Login">
 				<button type="button" className="btn btn-primary" style={styles.navtext}>Ingresar</button>
 				</Link>
