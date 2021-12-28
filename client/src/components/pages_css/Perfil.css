@@ -14,6 +14,11 @@
     margin-bottom: 40px;
 }
 
+.plantilla-perfil:hover{
+    box-shadow: 2px 2px 3px 3px #c0c0c0;
+    transition: all 0.2s ease;
+}
+
 .informacion-perfil{
     padding-bottom: 50px;
 }
