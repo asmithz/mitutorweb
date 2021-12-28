@@ -118,8 +118,8 @@ const PerfilEstudiante = () => {
                         <img src={missing_picture}/>
                     </div>
                     <div className="datos-perfil">
+                        <h3>Estudiante:</h3>
                         <h4>Nombre Apellido</h4>
-                        <h4>Clasificación</h4>
                     </div>
                     <hr></hr>
                 </div>
@@ -135,7 +135,7 @@ const PerfilEstudiante = () => {
                         <EditarDatos />
                 }
                 <div className="botones-perfil">
-                    <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar usuario"/>
+                    <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar mi cuenta"/>
                 </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import './Chat.css'
+import './PeticionChat.css'
 import BotonFormulario from '../botones/BotonFormulario';
 
 const Chat = () => {

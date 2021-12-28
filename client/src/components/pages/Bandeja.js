@@ -1,6 +1,6 @@
 import React from 'react'
 import Peticion from '../peticion/Peticion'
-import Chat from '../chat/Chat'
+import Chat from '../peticion_chat/PeticionChat'
 import '../pages_css/Bandeja.css'
 import '../peticion/Peticion.css'
 
