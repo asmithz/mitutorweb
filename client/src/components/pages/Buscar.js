@@ -10,6 +10,8 @@ import BotonFormulario from '../botones/BotonFormulario';
 import SelectFormulario from '../botones/SelectFormulario';
 import missing_picture from '../../img/missing_picture.png';
 
+const axios = require('axios');
+
 /*Componente filtro de asignaturas(los checkbox)*/
 const Asignaturas = (props) => {
   const asignatura = asignaturas.filter((ramo) => ramo.materia === props.value).map((ramo) => 

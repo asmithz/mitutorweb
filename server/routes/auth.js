@@ -8,13 +8,14 @@ const { registrarEstudiante } = require('../controladores/auth')
 const { registrarTutor } = require('../controladores/auth')
 const { loginEstudiante } = require('../controladores/auth')
 const { loginTutor } = require('../controladores/auth')
-const { revalidarToken } = require('../controladores/auth')
+const { revalidarToken } = require('../controladores/auth');
+const { test } = require('../controladores/auth');
+const { crearEstudiante } = require('../controladores/events');
+const { validarJWT } = require('../middelware/validar_jwt')
 
 router.post('/registrar', registrarEstudiante);
-router.post('/registrar', registrarTutor);
 router.post('/login', loginEstudiante);
-router.post('/login', loginTutor);
 
-router.get('/renew', revalidarToken);
+router.get('/renew', validarJWT, revalidarToken);
 
 module.exports = router;

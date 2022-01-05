@@ -10,14 +10,15 @@ dbConnection();
 //puerto
 const port = process.env.PORT;
 
+//lectura y parseo del body
+app.use(express.json());
+
 //directorio publico middlewares
 app.use( express.static('../src') );
 app.use('/api/auth', require('./routes/auth'));
-
-//lectura y parseo del body
-app.use( express.json() );
+app.use('/api/events', require('./routes/eventosCRUD'));
  
 app.listen(port, () => {
   // perform a database connection when server starts
-  console.log(`Server is running on port: ${ port }`);
+  console.log(`El puerto del servidor es: ${ port }`);
 });

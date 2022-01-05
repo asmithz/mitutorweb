@@ -1,161 +1,109 @@
-const express = require('express');
+const { response } = require('express');
 const bcrypt = require('bcryptjs');
 const Estudiante = require('../models/estudiante');
 const Tutor = require("../models/tutor");
+const { generarJWT } = require('../helpers/jwt');
+const { validarJWT } = require('../middelware/validar_jwt');
 
-const registrarEstudiante = async (req, res = express.response) => {
-    
-    const { tipo, 
-            nombre, 
-            apellido, 
-            rut, 
-            sexo, 
-            email, 
-            establecimiento, 
-            edad,
-            user,
-            password } = req.body;
+const registrarEstudiante = async (req, res = response) => {
+
+    const { tipo, nombre, apellido,rut, sexo, email, establecimiento, edad } = req.body;
+
     try{
 
-        let nuevo_estudiante = await Estudiante.findOne({ email });
-
-        if( nuevo_estudiante ){
-            return res.status(400).json({
-                msg: 'un usuario ya existe con ese correo'
-            });
-        }
-
         const estudiante = new Estudiante( req.body );
-        estudiante.user = nombre[0]+apellido; 
-        estudiante.password = rut; 
+
+        estudiante.user = estudiante.nombre[0]+estudiante.apellido; 
+        estudiante.password = estudiante.rut; 
 
         //encriptar contraseña
         const salt = bcrypt.genSaltSync();
-        estudiante.password = bcrypt.hashSync( password, salt );
+        estudiante.password = bcrypt.hashSync( estudiante.password, salt );
+
+        estudiante.markModified('user');
+        estudiante.markModified('password');
 
         await estudiante.save();
+        // generar jwt
+        const token = await generarJWT(estudiante.password, estudiante.user);
 
-        res.json({
-            ok:true,
-            msg: 'register'
+        res.status(201).json({
+            ok: true,
+            msg: 'register',
+            token
         })
 
     } catch (error) {
         res.status(500).json({
-            ok:true,
+            ok: false,
             msg: 'error'
         })
     }
 
 }
 
+const loginEstudiante = async(req, res = response) => {
 
-const registrarTutor = (req, res = express.response) => {
-
-    res.json({
-        ok:true,
-        msg: 'register'
-
-    })
-}
-
-const loginEstudiante = async(req, res = express.response) => {
-
-    const { user, 
-            password } = req.body;
+    const { user, password } = req.body;
 
     try{
-
+        // busca que exista el user
         const login_estudiante = await Estudiante.findOne({ user });
 
         if( !login_estudiante ){
             return res.status(400).json({
-                msg: 'el usuario no existe con ese correo'
+                ok: false,
+                msg: 'el usuario no existe'
             });
         }
 
-        // confirmar los passwords
-        const validPassword = bcrypt.compareSync( password, login_estudiante.password)
+        // confirmar los password
+        const validPassword = bcrypt.compareSync( password, login_estudiante.password );
 
         if( !validPassword ){
-            res.status(400).json({
-                msg: 'password incorrecto'
-            });
-        }
-
-        //geerar json token (jwt)
-        res.json({
-
-        })
-
-    } catch(error){
-        res.status(500).json({
-            ok:true,
-            msg: 'error'
-        })
-    }
-
-    res.json({
-        ok:true,
-        msg: 'register'
-
-    })
-}
-
-const loginTutor = async(req, res = express.response) => {
-
-    const { user, 
-            password } = req.body;
-
-    try{
-
-        const login_tutor = await Tutor.findOne({ user });
-
-        if( !login_tutor ){
             return res.status(400).json({
-                msg: 'el usuario no existe con ese correo'
-            });
-        }
-
-        // confirmar los passwords
-        const validPassword = bcrypt.compareSync( password, login_tutor.password)
-
-        if( !validPassword ){
-            res.status(400).json({
+                ok: false, 
                 msg: 'password incorrecto'
             });
         }
 
         //geerar json token (jwt)
-        res.json({
+        // generar jwt
+        const token = await generarJWT(login_estudiante.password, login_estudiante.user);
 
+        res.json({
+            ok:true,
+            msg: 'logeado',
+            token
         })
 
     } catch(error){
+        console.log(error)
         res.status(500).json({
-            ok:true,
-            msg: 'error'
+            ok:false,
+            msg: 'error halgo sucedio'
         })
     }
 
-    res.json({
-        ok:true,
-        msg: 'register'
-
-    })
 }
 
-const revalidarToken = (req, res) => {
+const revalidarToken = async(req, res = response) => {
+
+    const user = req.user;
+    const password = req.password;
+
+    // generar nuevo token
+    const token = await generarJWT(password, user);
+
     res.json({
         ok:true,
-        msg: 'lgin'
+        msg: 'login',
+        token
     })
 }
 
 module.exports = {
     registrarEstudiante,
-    registrarTutor,
     loginEstudiante,
-    loginTutor,
     revalidarToken
 }
