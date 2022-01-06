@@ -120,11 +120,39 @@ const Buscar = () => {
     setFiltro(!filtro)
     console.log("yes")
     console.log(values)
-    console.log(tutoresFetch)
-    setTutoresFetch(tutoresFetch.tutores.filter(( { nombre, apellido, calificacion, asignaturas, horario }) => {
-      return values.nombre === nombre
-    }))
-    console.log(tutoresFetch)
+    //admitir minusculas
+    //logica filtrar
+    setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre, values.nombre) 
+    && compararDato(tutor.datos.apellido, values.apellido)
+    && compararArr(tutor.datos.asignaturas, values.asignaturas)))
+    //setTutoresFetch(tutoresFetch.filter((tutor) => tutor.datos.apellido === values.apellido))
+    //setTutoresFetch(tutoresFetch.filter((tutor) => compararArr(tutor.datos.asignaturas, values.asignaturas)))
+  }
+
+  const compararDato = (dato1, dato2) => {
+    if(dato2 === ""){
+      return true
+    }
+    if(dato1 === dato2){
+      return true
+    }
+    else{
+      return false
+    }
+  }
+
+  const compararArr = (arr1, arr2) => {
+    if(arr2.length == 0){
+      return true
+    }
+    for(let valor1 of arr1){
+      for(let valor2 of arr2){
+        if(valor1 === valor2){
+          return true
+        }
+      }
+    }
+    return false
   }
   
   const[tutoresFetch, setTutoresFetch] = useState([]);
@@ -133,35 +161,25 @@ const Buscar = () => {
       try{
           if(!filtro){
             const response = await api.get('/obtenerTutores');
-            if(response && response.data) setTutoresFetch(response.data);
-          }
-          else{
-            //filtrar
-            /*
-            setTutoresFetch(tutoresFetch.filter)
-            
-            const responseFiltro = await api.get('/obtenerTutores');
-            if(responseFiltro && responseFiltro.data) setTutoresFetch(responseFiltro.data.filter());
-            
-            console.log("entre")
-            */
+            if(response && response.data.tutores) setTutoresFetch(response.data.tutores);
           }
         } catch(err){
           console.log(err)
         }
       }
-      obtenerTutores();
-  }, [tutoresFetch, filtro])
+      console.log(tutoresFetch)
+    obtenerTutores();
+  }, [filtro])
   return(
     <div>
       <h1>Buscar Tutor</h1>
       <div className="plantilla-buscar">
         {
           // check si existen tutores antes del GET
-          tutoresFetch.tutores && 
+          tutoresFetch && 
           <>
             <Filtro func={updateFiltro} />
-            <Tutores key="1" datos_tutores={tutoresFetch.tutores}/>
+            <Tutores key="1" datos_tutores={tutoresFetch}/>
           </>
         }
       </div>
