@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../pages_css/Buscar.css';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import FormularioAsignaturas from './FormulariosSignUp/FormularioAsignaturas';
@@ -7,10 +7,13 @@ import Horario from '../horario/Horario'
 import CheckBox from '../botones/Checkbox';
 import Dropdown from '../botones/Dropdown';
 import BotonFormulario from '../botones/BotonFormulario';
-import SelectFormulario from '../botones/SelectFormulario';
 import missing_picture from '../../img/missing_picture.png';
+import axios from 'axios';
+import ModalBoton from '../../components/botones/ModalBoton';
 
-const axios = require('axios');
+const api = axios.create({
+    baseURL: `http://localhost:2000/api/events`
+})
 
 /*Componente filtro de asignaturas(los checkbox)*/
 const Asignaturas = (props) => {
@@ -23,7 +26,7 @@ const Asignaturas = (props) => {
 }
 
 /*Permite filtrar a los tutores*/
-const Filtro = () => {
+const Filtro = (props) => {
   return(
     <div className="menu-filtro">
       <Formik initialValues={{
@@ -33,7 +36,7 @@ const Filtro = () => {
             calificacion: '',
             horario: [''],
           }}
-          onSubmit={values => console.log(values)} >
+          onSubmit={values => {props.func(values)}}>
         <Form>
           <div className="filtro">
             <div className="form-floating">
@@ -76,21 +79,21 @@ const Filtro = () => {
   );
 }
 
-const TarjetaTutor = () => {
+const TarjetaTutor = (props) => {
   return(
-    <div className="tarjeta-tutor">
+    <div className="tarjeta-tutor" key={props.key_tutor}>
       <div className="tarjeta-tutor-imagen">
         <img src={missing_picture}/>
       </div>
       <div className="tarjeta-tutor-texto">
-        <h5>Ariel Smith</h5>
+        <h5>{props.datos_tutor.nombre} {props.datos_tutor.apellido}</h5>
       </div>
       <div className="tarjeta-tutor-texto">
-        <h6>Calificación: 5.0</h6>
+        <h6>Calificación: {props.datos_tutor.calificacion}</h6>
       </div>
       <div className="tarjeta-tutor-botones">
-        <BotonFormulario className="boton-agregar" value="Ver Horario" />
-        <BotonFormulario className="boton-agregar" value="Asignaturas" />
+        <ModalBoton className="boton-agregar" value="Ver Horario" title="titulo" content="contenido"/>
+        <ModalBoton className="boton-agregar" value="Asignaturas" title="titulo" content="contenido"/>
       </div>
       <div className="tarjeta-tutor-solicitud"> 
         <BotonFormulario className="boton-eliminar" value="Solicitar Tutoria"/>
@@ -99,28 +102,68 @@ const TarjetaTutor = () => {
   );
 }
 
-const Tutores = () => {
+const Tutores = (props) => {
   return(
     <div className="plantilla-tutores">
-      <TarjetaTutor />
-      <TarjetaTutor />
-      <TarjetaTutor />
-      <TarjetaTutor />
-      <TarjetaTutor />
-      <TarjetaTutor />
-      <TarjetaTutor />
+      {props.datos_tutores.map((tutor) =>
+        <TarjetaTutor key_tutor={tutor.id} datos_tutor={tutor.datos} horario_tutor={tutor.horario}/>)
+      }
     </div>
   );
 }
 
 /*Componente clase Buscar*/
 const Buscar = () => {
+  //activar filtro
+  const[filtro, setFiltro] = useState(false);
+  const updateFiltro = (values) => {
+    setFiltro(!filtro)
+    console.log("yes")
+    console.log(values)
+    console.log(tutoresFetch)
+    setTutoresFetch(tutoresFetch.tutores.filter(( { nombre, apellido, calificacion, asignaturas, horario }) => {
+      return values.nombre === nombre
+    }))
+    console.log(tutoresFetch)
+  }
+  
+  const[tutoresFetch, setTutoresFetch] = useState([]);
+  useEffect(() => {
+    const obtenerTutores = async () => {
+      try{
+          if(!filtro){
+            const response = await api.get('/obtenerTutores');
+            if(response && response.data) setTutoresFetch(response.data);
+          }
+          else{
+            //filtrar
+            /*
+            setTutoresFetch(tutoresFetch.filter)
+            
+            const responseFiltro = await api.get('/obtenerTutores');
+            if(responseFiltro && responseFiltro.data) setTutoresFetch(responseFiltro.data.filter());
+            
+            console.log("entre")
+            */
+          }
+        } catch(err){
+          console.log(err)
+        }
+      }
+      obtenerTutores();
+  }, [tutoresFetch, filtro])
   return(
     <div>
       <h1>Buscar Tutor</h1>
       <div className="plantilla-buscar">
-        <Filtro />
-        <Tutores />
+        {
+          // check si existen tutores antes del GET
+          tutoresFetch.tutores && 
+          <>
+            <Filtro func={updateFiltro} />
+            <Tutores key="1" datos_tutores={tutoresFetch.tutores}/>
+          </>
+        }
       </div>
     </div>
   )

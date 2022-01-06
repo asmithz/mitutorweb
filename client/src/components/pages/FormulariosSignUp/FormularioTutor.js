@@ -1,14 +1,14 @@
-import React , { useState } from 'react';
+import React , { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage  } from 'formik';
 import BotonFormulario from '../../botones/BotonFormulario';
 import FormularioAsignaturas from './FormularioAsignaturas';
+import SelectFormulario from '../../botones/SelectFormulario';
 import Horario from '../../horario/Horario'
 import { horario } from '../../horario/Horario'
 
 const validacion = () => {
 
 }
-
 
 const FormularioTutor = (props) => {
 
@@ -17,13 +17,11 @@ const FormularioTutor = (props) => {
         setTipo(true);
     }
 
-    const [datos_tutor, setDatos] = useState([])
+    const [datos_tutor, setDatos] = useState({})
     const obtenerDatos = (values) => {
+        setDatos({...values})
         updatedisplayHorario();
-        setDatos(datos_tutor.push(values))
-        alert(JSON.stringify(datos_tutor, null, 4));
     }
-
     return(
         <div>
             {displayHorario === false &&
@@ -33,10 +31,16 @@ const FormularioTutor = (props) => {
                         apellido: '', 
                         rut: '', 
                         edad: '', 
+                        sexo: '',
                         email: '',
+                        establecimiento: '',
                         asignaturas: [''],
                     }}
-                    onSubmit={values => obtenerDatos(values)}
+                    onSubmit={(values) => 
+                                { 
+                                    obtenerDatos(values)
+                                }
+                            }
                 >
                     <Form>
                         <div className="form-tutor">
@@ -62,11 +66,24 @@ const FormularioTutor = (props) => {
                                 <Field placeholder="Edad" className="form-control" id="floatingEdad" name="edad" type="text"/>
                                 <label for="floatingEdad">Edad</label>
                                 <ErrorMessage name="edad"/>
+                            </div> 
+                            <div class="form-floating">
+                                <SelectFormulario className="form-select form-select-lg mb-3" name="sexo">
+                                    <option>Seleccione sexo</option>
+                                    <option value="masculino">Masculino</option>
+                                    <option value="femenino">Femenino</option>
+                                    <option value="s_otro">Otro</option>
+                                </SelectFormulario>
                             </div>
                             <div className="form-floating">
                                 <Field placeholder="Email" className="form-control" id="floatingEmail" name="email" type="email"/>
                                 <label for="floatingEmail">Email</label>
                                 <ErrorMessage name="email"/>
+                            </div>
+                            <div className="form-floating">
+                                <Field placeholder="Establecimiento" className="form-control" id="floatingEstablecimiento" name="establecimiento" type="text"/>
+                                <label for="floatingEdad">Establecimiento</label>
+                                <ErrorMessage name="establecimiento"/>
                             </div>
                             <div>
                                 <FormularioAsignaturas name="asignaturas" label="Agregue las asignaturas que realiza" />

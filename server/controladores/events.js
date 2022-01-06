@@ -107,9 +107,6 @@ const borrarEstudiante = async(req, res = response) => {
             msg: 'error al actualizar'
         })
     }
-
-
-
     res.json({
         ok: true,
         msg : 'borrarEstudiante'
@@ -140,6 +137,23 @@ const borrarTutor = (req, res = response) => {
     })
 }
 
+const obtenerTutores = async (req, res = response) => {
+    const tutores = await Tutor.find();
+    // .populate
+    res.json({
+        tutores
+    })
+}
+
+const filtrarTutores = async(req, res = response) => {
+    //colocar especificaciones
+    const tutores = await Tutor.find({dato});
+    res.json({
+        ok: true,
+        tutores
+    })
+}
+
 module.exports = {
     obtenerEstudiante,
     actualizarEstudiante,
@@ -147,4 +161,6 @@ module.exports = {
     obtenerTutor,
     actualizarTutor,
     borrarTutor,
+    obtenerTutores,
+    filtrarTutores
 }

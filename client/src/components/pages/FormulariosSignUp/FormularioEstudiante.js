@@ -3,9 +3,20 @@ import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import BotonFormulario from '../../botones/BotonFormulario';
 import SelectFormulario from '../../botones/SelectFormulario';
 import CheckBox from '../../botones/Checkbox';
+import axios from 'axios'
+import { useHistory } from 'react-router';
+
+const api = axios.create({
+    baseURL: `http://localhost:2000/api/log`
+})
 
 const validaciones = () => {
     const errors = {};
+}
+
+const crearEstudiante = async (values) => {
+    await api.post('/registrarEstudiante', values);
+    console.log(values)
 }
 
 const FormularioEstudiante = (props) => {
@@ -22,7 +33,7 @@ const FormularioEstudiante = (props) => {
                     email: '', 
                     establecimiento: '',
                 }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => crearEstudiante(values)}
         >
             <Form>
                 <div className="form-estudiante">

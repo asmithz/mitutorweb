@@ -10,7 +10,6 @@ const registrarEstudiante = async (req, res = response) => {
     const { tipo, nombre, apellido,rut, sexo, email, establecimiento, edad } = req.body;
 
     try{
-
         const estudiante = new Estudiante( req.body );
 
         estudiante.user = estudiante.nombre[0]+estudiante.apellido; 
@@ -37,6 +36,54 @@ const registrarEstudiante = async (req, res = response) => {
         res.status(500).json({
             ok: false,
             msg: 'error'
+        })
+    }
+}
+
+const registrarTutor = async (req, res = response) => {
+
+    const { datos, horario } = req.body;
+
+    try{
+        const email = datos.email
+
+        let tutor = await Tutor.findOne({ datos: {email: email} });
+
+        if(tutor){
+            return res.status(400).json({
+                ok: false,
+                msg: "ya existe ese correo"
+            });
+        }
+
+        tutor = new Tutor( req.body );
+        tutor.datos.user = tutor.datos.nombre[0]+tutor.datos.apellido; 
+        tutor.datos.password = tutor.datos.rut; 
+        tutor.datos.calificacion = "0";
+
+        //encriptar contraseña
+        const salt = bcrypt.genSaltSync();
+        tutor.datos.password = bcrypt.hashSync( tutor.datos.password, salt );
+
+        tutor.markModified('datos.user');
+        tutor.markModified('datos.password');
+
+        console.log(tutor)
+        await tutor.save();
+        // generar jwt
+        const token = await generarJWT(tutor.datos.password, tutor.datos.user);
+
+        res.status(201).json({
+            ok: true,
+            msg: 'register',
+            token
+        })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'error no se pudo agregar al tutor'
         })
     }
 
@@ -104,6 +151,7 @@ const revalidarToken = async(req, res = response) => {
 
 module.exports = {
     registrarEstudiante,
+    registrarTutor,
     loginEstudiante,
     revalidarToken
 }

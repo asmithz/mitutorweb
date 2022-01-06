@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import BotonFormulario from '../botones/BotonFormulario';
 import { FaCheck, FaWindowClose, FaPencilAlt } from 'react-icons/fa'
 import './Horario.css';
+import axios from 'axios'
 
 const horas = [
     '8:00 AM',
@@ -25,30 +26,25 @@ const horas = [
 
 const dias = ['Horario', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
-const horario = 
-    [
-        {
-            "Lunes": []
-        },
-        {
-            "Martes": []
-        },
-        {
-            "Miércoles": []
-        },
-        {
-            "Jueves": []
-        },
-        {
-            "Viernes": []
-        },
-        {
-            "Sábado": []
-        },
-        {
-            "Domingo": []
-        }
-    ]
+const horario= {
+                Lunes: [],
+                Martes: [],
+                Miércoles: [],
+                Jueves: [],
+                Viernes: [],
+                Sábado: [],
+                Domingo: []
+                }
+
+//call api
+const api = axios.create({
+    baseURL: `http://localhost:2000/api/log`
+});
+
+const crearTutor = async (values) => {
+    console.log(values)
+    await api.post('/registrarTutor', values);
+}
 
 const Bloques = (props) => {
     const[seleccion, setSeleccion] = useState(false);
@@ -124,6 +120,7 @@ const Horario = (props) => {
 
     /*Agrega, al arreglo, la hora al dia que se selecciona*/
     const checkHora = (diaSeleccionado, horaSeleccionada) => {
+        /*
         horario.map(
             (dia) => 
                 {
@@ -134,10 +131,19 @@ const Horario = (props) => {
                     }
                 }
             )
+        */
+        for(var dia of Object.entries(horario)){
+            if(dia[0] === diaSeleccionado){
+                if(!dia[1].includes(horaSeleccionada)){
+                    dia[1].push(horaSeleccionada)
+                }
+            }
+        }
     }
 
     /*Quita, del arreglo, la hora del dia que se selecciona*/
     const uncheckHora = (diaSeleccionado, horaSeleccionada) => {
+        /*
         horario.map(
             (dia) => 
                 {
@@ -148,6 +154,14 @@ const Horario = (props) => {
                     }
                 }
             )
+        */
+        for(var dia of Object.entries(horario)){
+            if(dia[0] === diaSeleccionado){
+                if(dia[1].includes(horaSeleccionada)){
+                    dia[1].pop(horaSeleccionada)
+                }
+            }
+        }
     }
 
     /*Muestra el horario con su className*/
@@ -169,7 +183,7 @@ const Horario = (props) => {
                         datos: props.datos,
                         horario: horario
                     }}
-                    onSubmit={values => alert(JSON.stringify(values, null, 4))}
+                    onSubmit={values => crearTutor(values)}
                 >
                     <Form>
                         <BotonFormulario className="boton-siguiente" name="boton" value="Registrar" />

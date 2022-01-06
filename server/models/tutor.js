@@ -24,7 +24,6 @@ const datos_tutor = Schema({
     email: {
         type: String,
         require: true,
-        unique: true,
     },
     establecimiento: {
         type: String,
@@ -34,54 +33,53 @@ const datos_tutor = Schema({
         type: String,
         require: true
     },
+    asignaturas: {
+        type: [String],
+        require: true
+    },
     user: {
         type: String
     },
     password: {
+        type: String
+    },
+    calificacion: {
         type: String
     }
 });
 
 const horario_tutor = Schema({
     Lunes: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Martes: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Miercoles: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Jueves: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Viernes: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Sábado: {
-        type: [String],
-        required: true,
+        type: [String]
     },
     Domingo: {
-        type: [String],
-        required: true,
+        type: [String]
     }
 });
 
-const TutorSchema = Schema({
+const TutorSchema = Schema({ 
    datos: {
-       type: [datos_tutor],
-       required: true,
+    type: datos_tutor
    },
-   horario: {
-       type: [horario_tutor],
-       required: true,
-   }
+   horario:{
+    type: horario_tutor
+   } 
 });
+
 
 module.exports = model('Tutor', TutorSchema);
