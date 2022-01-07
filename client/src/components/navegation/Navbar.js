@@ -14,7 +14,12 @@ const styles = {
 }
 
 const Navbar = () => {
-  return(
+	const salir = () => {
+		localStorage.removeItem('x-token');
+		window.location.reload(false);
+	}
+
+	return(
     <div>
      <nav className="navbar navbar-expand-lg" style={styles.navbar}>
 		<div className="container-fluid">
@@ -24,17 +29,31 @@ const Navbar = () => {
 				<li className="nav-item">
 				<Link className="nav-link" to="/Buscar" style={styles.navtext}>Buscar Tutor</Link>
 				</li>
-				<li className="nav-item">
-				<Link className="nav-link" to="/Bandeja" style={styles.navtext}>Bandeja de peticiones</Link>
-				</li>
-				<li className="nav-item">
-				<Link className="nav-link" to="/Perfil" style={styles.navtext}>Mi perfil</Link>
-				</li>
-				<li className="nav-item">
-				<Link to="/Login">
-				<button type="button" className="btn btn-primary" style={styles.navtext}>Ingresar</button>
-				</Link>
-				</li>
+
+				{localStorage.getItem('x-token') && 
+					<li className="nav-item">
+					<Link className="nav-link" to="/Bandeja" style={styles.navtext}>Bandeja de peticiones</Link>
+					</li>
+				}
+				{localStorage.getItem('x-token') && 
+					<li className="nav-item">
+					<Link className="nav-link" to="/Perfil" style={styles.navtext}>Mi perfil</Link>
+					</li>
+				}
+				{!localStorage.getItem('x-token') &&
+					<li className="nav-item">
+					<Link to="/Login">
+					<button type="button" className="btn btn-primary" style={styles.navtext}>Ingresar</button>
+					</Link>
+					</li>
+				}
+				{localStorage.getItem('x-token') &&
+					<li className="nav-item">
+					<Link to="/">
+					<button type="button" onClick={salir} className="btn btn-primary" style={styles.navtext}>Salir</button>
+					</Link>
+					</li>
+				}
 			</ul>
 			</div>
 		</div>

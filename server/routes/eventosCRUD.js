@@ -10,7 +10,7 @@ const router = Router();
 router.get('/obtenerEstudiante', obtenerEstudiante);
 
 //actualizar estudiante
-router.put('/:id', actualizarEstudiante);
+router.put('/actualizarEstudiante/:id', actualizarEstudiante);
 
 //borrar estudiante
 router.delete('/:id',borrarEstudiante);
@@ -19,7 +19,7 @@ router.delete('/:id',borrarEstudiante);
 router.get('/obtenerTutor', obtenerTutor);
 
 //actualizar tutor
-router.put('/:id', actualizarTutor);
+router.put('/actualizarTutor/:id', actualizarTutor);
 
 //borrar tutor
 router.delete('/:id',borrarTutor);

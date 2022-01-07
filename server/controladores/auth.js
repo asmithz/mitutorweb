@@ -24,12 +24,12 @@ const registrarEstudiante = async (req, res = response) => {
 
         await estudiante.save();
         // generar jwt
-        const token = await generarJWT(estudiante.password, estudiante.user);
+        const token = await generarJWT(estudiante.id, estudiante.tipo);
+        //res.cookie('x-token', token, { httpOnly: true, maxAge: 86400 })
 
         res.status(201).json({
             ok: true,
-            msg: 'register',
-            token
+            msg: 'register'
         })
 
     } catch (error) {
@@ -71,12 +71,12 @@ const registrarTutor = async (req, res = response) => {
         console.log(tutor)
         await tutor.save();
         // generar jwt
-        const token = await generarJWT(tutor.datos.password, tutor.datos.user);
+        const token = await generarJWT(tutor.id, tutor.datos.tipo);
+        res.cookie('x-token', token, { httpOnly: true, maxAge: 86400 })
 
         res.status(201).json({
             ok: true,
-            msg: 'register',
-            token
+            msg: 'register'
         })
 
     } catch (error) {
@@ -89,45 +89,63 @@ const registrarTutor = async (req, res = response) => {
 
 }
 
-const loginEstudiante = async(req, res = response) => {
+const loginUsuario = async(req, res = response) => {
 
     const { user, password } = req.body;
 
     try{
-        // busca que exista el user
-        const login_estudiante = await Estudiante.findOne({ user });
+        // busca que exista el user en estudiantes
+        let login = await Estudiante.findOne({ user });
 
-        if( !login_estudiante ){
-            return res.status(400).json({
-                ok: false,
-                msg: 'el usuario no existe'
-            });
+        if( !login ){
+            // busca que exista el user en tutores
+            login = await Tutor.findOne({ user });
+            if( !login ){
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'el usuario no existe'
+                });
+            }
+            else{
+                // confirmar los password
+                let validPassword2 = bcrypt.compareSync( password, login.datos.password );
+
+                if( !validPassword2 ){
+                    return res.status(400).json({
+                        ok: false, 
+                        msg: 'password incorrecto'
+                    });
+                }
+            }
+        }
+        else{
+            // confirmar los password
+            let validPassword = bcrypt.compareSync( password, login.password );
+
+            if( !validPassword ){
+                return res.status(400).json({
+                    ok: false, 
+                    msg: 'password incorrecto'
+                });
+            }
         }
 
-        // confirmar los password
-        const validPassword = bcrypt.compareSync( password, login_estudiante.password );
-
-        if( !validPassword ){
-            return res.status(400).json({
-                ok: false, 
-                msg: 'password incorrecto'
-            });
-        }
 
         //geerar json token (jwt)
         // generar jwt
-        const token = await generarJWT(login_estudiante.password, login_estudiante.user);
-
+        const token = await generarJWT(login.id, login.tipo);
+        res.cookie('x-token', token, { httpOnly: true, maxAge: 86400, secure: true })
         res.json({
-            ok:true,
+            ok: true,
             msg: 'logeado',
+            login,
             token
         })
 
     } catch(error){
         console.log(error)
         res.status(500).json({
-            ok:false,
+            ok: false,
             msg: 'error halgo sucedio'
         })
     }
@@ -136,11 +154,10 @@ const loginEstudiante = async(req, res = response) => {
 
 const revalidarToken = async(req, res = response) => {
 
-    const user = req.user;
-    const password = req.password;
+    const { tipo, id } = req.body;
 
     // generar nuevo token
-    const token = await generarJWT(password, user);
+    const token = await generarJWT(id, tipo);
 
     res.json({
         ok:true,
@@ -149,9 +166,10 @@ const revalidarToken = async(req, res = response) => {
     })
 }
 
+
 module.exports = {
     registrarEstudiante,
     registrarTutor,
-    loginEstudiante,
+    loginUsuario,
     revalidarToken
 }

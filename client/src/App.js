@@ -10,23 +10,27 @@ import Perfil  from './components/pages/Perfil';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return (
-    <div className="App">
-      <Router>
-	<Switch>
-	  <Route path='/Login' exact component={Login}/>
-	  <Route path='/SignUp' exact component={SignUp}/>
-	  <div>
-	    <Navbar />
-	    <Route path='/Inicio' exact component={Inicio}/>
-	    <Route path='/Buscar' exact component={Buscar}/>
-	    <Route path='/Bandeja' exact component={Bandeja}/>
-	    <Route path='/Perfil' exact component={Perfil}/>
-	  </div>
-	</Switch>
-      </Router>
-    </div>
-  );
+	return (
+		<div className="App">
+			<Router>
+				<Switch>
+					<Route path='/Login' exact component={Login}/>
+					<Route path='/SignUp' exact component={SignUp}/>
+						<div>
+							<Navbar />
+							<Route path='/Inicio' exact component={Inicio}/>
+							<Route path='/Buscar' exact component={Buscar}/>
+						{localStorage.getItem('x-token') && 
+							<>
+							<Route path='/Bandeja' exact component={Bandeja}/>
+							<Route path='/Perfil' exact component={Perfil}/>
+							</>
+						}
+					</div>
+				</Switch>
+			</Router>
+		</div>
+	);
 }
 
 export default App;

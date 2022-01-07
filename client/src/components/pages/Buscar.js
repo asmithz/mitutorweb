@@ -118,8 +118,10 @@ const Buscar = () => {
   const[filtro, setFiltro] = useState(false);
   const updateFiltro = (values) => {
     setFiltro(!filtro)
+    /*
     console.log("yes")
     console.log(values)
+    */
     //admitir minusculas
     //logica filtrar
     setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre, values.nombre) 
@@ -130,6 +132,8 @@ const Buscar = () => {
   }
 
   const compararDato = (dato1, dato2) => {
+    dato1 = dato1.toLowerCase()
+    dato2 = dato2.toLowerCase()
     if(dato2 === ""){
       return true
     }
@@ -179,7 +183,11 @@ const Buscar = () => {
           tutoresFetch && 
           <>
             <Filtro func={updateFiltro} />
-            <Tutores key="1" datos_tutores={tutoresFetch}/>
+            {tutoresFetch.length == 0 ?
+              <h2>No hay coincidencias</h2> 
+            :
+              <Tutores key="1" datos_tutores={tutoresFetch}/>
+            }
           </>
         }
       </div>

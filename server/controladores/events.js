@@ -16,7 +16,10 @@ const obtenerEstudiante = async (req, res = response) => {
 
 const actualizarEstudiante = async (req, res = response) => {
 
+    //console.log(req.body)
+    //console.log(req.params.id)
     const estudianteID = req.params.id;
+    const estudianteBody = req.body
 
     try{
 
@@ -29,27 +32,44 @@ const actualizarEstudiante = async (req, res = response) => {
             });
         }
 
-        console.log(estudiante.id.toString())
-
-        console.log(estudianteID)
-
         if(estudiante.id.toString() !== estudianteID){
             return res.status(401).json({
                 ok: false,
                 msg: 'sin privilegios'
             });
         }
+        //console.log(estudiante)
+        /*
+        let nuevo = {
+            _id: estudiante._id,
+            __v: estudiante.__v}
 
-        const nuevoEstudiante = {
-            ...req.body,
-            id: estudiante_user 
+        */
+        //rellenar datos vacios con los anteriores
+        for(let valor in Object.entries(estudianteBody)){
+            if(valor === ""){
+                estudianteBody.valor = estudiante.valor
+            }
         }
 
-        const estudianteActualizado = await Estudiante.findByIdAndUpdate( estudianteID, nuevoEstudiante, { new: true} );
+       
+
+        const nuevosDatos = {
+            _id: estudiante._id,
+            nombre : estudianteBody.nombre,
+            apellido : estudianteBody.apellido,
+            rut : estudianteBody.rut,
+            sexo : estudianteBody.sexo,
+            email : estudianteBody.email,
+            establecimiento : estudiante.establecimiento,
+            edad : estudiante.edad,
+            __v: estudiante.__v
+        } 
+       
+        const estudianteActualizado = await Estudiante.findByIdAndUpdate( estudianteID, nuevosDatos, { new: true} );
 
         return res.json({
-            ok: true,
-            msg: estudianteActualizado
+            ok: true
         });
 
     } catch(error){
@@ -59,12 +79,6 @@ const actualizarEstudiante = async (req, res = response) => {
             msg: 'error al actualizar'
         })
     }
-    
-    res.json({
-        ok: true,
-        msg : 'actualizarEstudiante',
-        estudianteID
-    })
 }
 
 const borrarEstudiante = async(req, res = response) => {
