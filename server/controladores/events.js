@@ -125,10 +125,43 @@ const obtenerTutor = async (req, res = response) => {
     })
 }
 
-const actualizarTutor = (req, res = response) => {
+const actualizarTutor = async (req, res = response) => {
     res.json({
         ok: true,
         msg : 'actualizarTutor'
+    })
+}
+
+const actualizarHorario = async (req, res = response) => {
+
+    const { horario } = req.body;
+    const tutorID = req.params.id;
+    try{
+        const tutor = await Tutor.findById(tutorID);
+        console.log(tutor)
+        console.log(horario)
+        const nuevo_tutor = {
+            _id: tutorID,
+            datos: tutor.datos,
+            horario: horario,
+            __v: tutor.__v
+        }
+        console.log(nuevo_tutor)
+
+        const horarioActualizado = await Tutor.findByIdAndUpdate( tutorID, nuevo_tutor, { new: true} );
+
+        return res.json({
+            ok: true,
+            msg: "horario actualizado",
+            horarioActualizado
+        });
+
+    }catch(error){
+        console.log(error)
+    }
+
+    res.json({
+        datos
     })
 }
 
@@ -162,6 +195,7 @@ module.exports = {
     borrarEstudiante,
     obtenerTutor,
     actualizarTutor,
+    actualizarHorario,
     borrarTutor,
     obtenerTutores,
     filtrarTutores

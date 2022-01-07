@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { validarJWT } = require('../middelware/validar_jwt');
-const { obtenerTutor, actualizarTutor, borrarTutor } = require('../controladores/events')
+const { obtenerTutor, actualizarTutor, actualizarHorario, borrarTutor } = require('../controladores/events')
 const { obtenerEstudiante, actualizarEstudiante, borrarEstudiante } = require('../controladores/events')
 const { obtenerTutores, filtrarTutores } = require('../controladores/events')
 
@@ -20,6 +20,9 @@ router.get('/obtenerTutor', obtenerTutor);
 
 //actualizar tutor
 router.put('/actualizarTutor/:id', actualizarTutor);
+
+//actualizar horario
+router.put('/actualizarHorario/:id', actualizarHorario);
 
 //borrar tutor
 router.delete('/:id',borrarTutor);

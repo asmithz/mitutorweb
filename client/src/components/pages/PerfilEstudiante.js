@@ -210,16 +210,19 @@ const PerfilEstudiante = (props) => {
                 <h2>Mis datos personales</h2>
                 { 
                     editarDatos === false ?
+                    <>
                         <div>
                             <MostrarDatos datos_estudiante={estudiante[0]} />
                             <BotonFormulario func={updateEditar} className="boton-editar" nombre="boton-editar" value="Editar Datos" />
                         </div>
+                        <div className="botones-perfil">
+                            <BotonFormulario className="boton-eliminar" func={updateBorrarEstudiante} nombre="boton" value="Borrar mi cuenta"/>
+                        </div>
+                    </>
                     :
                         <EditarDatos datos_estudiante={estudiante[0]} id_estudiante={props.datos_estudiante.id}/>
                 }
-                <div className="botones-perfil">
-                    <BotonFormulario className="boton-eliminar" func={updateBorrarEstudiante} nombre="boton" value="Borrar mi cuenta"/>
-                </div>
+
                 </div>
             </div>
             }

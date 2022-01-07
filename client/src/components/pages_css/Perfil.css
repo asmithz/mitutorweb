@@ -35,7 +35,14 @@
     grid-template-columns: auto;
     grid-template-rows: auto auto auto auto auto auto auto;
     grid-gap: 20px;
-
+}
+.editar-perfil-tutor{
+    padding-left: 200px;
+    padding-right: 200px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto auto auto auto auto auto;
+    grid-gap: 20px;
 }
 
 .imagen{

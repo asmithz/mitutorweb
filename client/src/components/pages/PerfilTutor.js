@@ -4,6 +4,8 @@ import missing_picture from '../../img/missing_picture.png';
 import BotonFormulario from '../botones/BotonFormulario';
 import SelectFormulario from '../botones/SelectFormulario';
 import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
+import Horario from '../horario/Horario';
+import FormularioAsignaturas from './FormulariosSignUp/FormularioAsignaturas';
 import DetectarTipoUsuario from '../controllers/DetectarTipoUsuario';
 import axios from 'axios'
 
@@ -19,6 +21,12 @@ const api_checkTOKEN = axios.create({
   baseURL: `http://localhost:2000/api/checkToken`
 })
 const EditarDatos = (props) => {
+
+    const [datos_tutor, setDatos] = useState({})
+    const obtenerDatos = (values) => {
+        setDatos({...values})
+    }
+
     return(
         <div>
             <Formik initialValues={{
@@ -29,6 +37,7 @@ const EditarDatos = (props) => {
                 sexo:'', 
                 email: '', 
                 establecimiento: '',
+                asignaturas: ['']
                 }}
                 onSubmit={values => console.log(values)}
                 > 
@@ -74,11 +83,7 @@ const EditarDatos = (props) => {
                         </div>                               
                         <div className="form-floating">
                             <h4>Mis asignaturas</h4>
-                            {/*mostrar asignturas */}
-                        </div>
-                        <div className="form-floating">
-                            <h4>Mi horario</h4>
-                            {/*mostrar horario*/}
+                            <FormularioAsignaturas name="asignaturas" label="Agregue las asignaturas que realiza" />
                         </div>
                         <div>
                             <BotonFormulario className="boton-aceptar" nombre="boton" value="Aceptar"/>
@@ -92,7 +97,8 @@ const EditarDatos = (props) => {
 
 const MostrarDatos = (props) => { 
     return(
-        <div className="editar-perfil">
+        <>
+        <div className="editar-perfil-tutor">
             <div className="form-floating">
                 <input placeholder="Nombre" className="form-control" id="floatingNombre" name="nombre" type="text" disabled/>
                 <label for="floatingNombre">Nombre: {props.datos_tutor.datos.nombre}</label>
@@ -122,11 +128,9 @@ const MostrarDatos = (props) => {
                 <input placeholder="Sexo" className="form-control" id="floatingSexo" name="sexo" type="sexo" disabled/>
                 <label for="floatingSexo">Sexo: {props.datos_tutor.datos.sexo}</label>
             </div>
-            <div className="form-floating">
-                <h4>Mi horario</h4>
-                {/*mostrar horario*/}
-            </div>
         </div>
+
+        </>
     )
 }
 
@@ -207,16 +211,19 @@ const PerfilTutor = (props) => {
                     <h2>Mis datos personales</h2>
                     { 
                         editarDatos === false ?
-                            <div>
+                            <>
                                 <MostrarDatos datos_tutor={tutor[0]} />
                                 <BotonFormulario func={updateEditar} className="boton-editar" nombre="boton-editar" value="Editar Datos" />
-                            </div>
+                                <div className="botones-perfil">
+                                    <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar mi cuenta"/>
+                                </div>
+                                <div>
+                                    <Horario accion="modificar" titulo="Publicar Horario"/>
+                                </div>
+                            </>
                         :
                             <EditarDatos datos_tutor={tutor[0]} />
                     }
-                    <div className="botones-perfil">
-                        <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar mi cuenta"/>
-                    </div>
                     </div>
                 </div>
             }

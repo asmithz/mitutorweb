@@ -1,6 +1,7 @@
 import { Formik, Form } from 'formik';
 import React, { useState } from 'react';
 import BotonFormulario from '../botones/BotonFormulario';
+import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 import { FaCheck, FaWindowClose, FaPencilAlt } from 'react-icons/fa'
 import './Horario.css';
 import axios from 'axios'
@@ -36,15 +37,22 @@ const horario= {
                 Domingo: []
                 }
 
-//call api
+//call api 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/log`
 });
 
-const crearTutor = async (values) => {
+const registrarHorario = async (values) => {
     console.log(values)
     await api.post('/registrarTutor', values);
 }
+
+const apiHorario = axios.create({
+    baseURL: `http://localhost:2000/api/events`
+})
+
+
+
 
 const Bloques = (props) => {
     const[seleccion, setSeleccion] = useState(false);
@@ -150,7 +158,7 @@ const Horario = (props) => {
         );
     }
 
-    /*Registra al tutor con su horario */
+    /*Registra el horario del tutor*/
     const registrarHorarioTutor = () => {
         return(
             <div>
@@ -159,7 +167,7 @@ const Horario = (props) => {
                         datos: props.datos,
                         horario: horario
                     }}
-                    onSubmit={values => crearTutor(values)}
+                    onSubmit={values => registrarHorario(values)}
                 >
                     <Form>
                         <BotonFormulario className="boton-siguiente" name="boton" value="Registrar" />
@@ -167,6 +175,42 @@ const Horario = (props) => {
                 </Formik>
             </div>
         );
+    }
+
+    /*Modifica el horario del tutor */
+    const modificarHorarioTutor = () => {
+        return(
+            <div>
+                <Formik
+                    initialValues={{
+                        horario: horario
+                    }}
+                    onSubmit={values => console.log(values)}
+                >
+                    <Form>
+                        <BotonFormulario className="boton-aceptar" name="boton" value="Publicar Horario" />
+                    </Form>
+                </Formik>
+            </div>
+        );
+    }
+
+    const mi_token = localStorage.getItem('x-token')
+    const tutorID = ObtenerUsuarioID();
+
+    const publicarHorario = async (nuevoHorario) => {
+        try{
+            await apiHorario.put('/actualizarHorario/:'+tutorID, nuevoHorario,{
+                headers: {
+                'Content-type': 'application/json',
+                'x-token': mi_token
+                }
+            })
+            alert("Horario publicado con exito")
+            window.location.reload(false);
+        }catch(error){
+            console.log(error)
+        }
     }
 
     return(
@@ -180,6 +224,12 @@ const Horario = (props) => {
             {props.accion === "buscar-horario" &&
             <>
                 {mostrarHorario()}
+            </>
+            }
+            {props.accion === "modificar" &&
+            <>
+                {mostrarHorario()}
+                {modificarHorarioTutor()}
             </>
             }
         </>

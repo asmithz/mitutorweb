@@ -27,7 +27,8 @@ const FormularioTutor = (props) => {
             {displayHorario === false &&
                 <Formik
                     initialValues={{
-                        tipo: props.tipo, nombre: '', 
+                        tipo: props.tipo,
+                        nombre: '', 
                         apellido: '', 
                         rut: '', 
                         edad: '', 
