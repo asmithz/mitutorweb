@@ -46,13 +46,6 @@ const actualizarEstudiante = async (req, res = response) => {
 
         */
         //rellenar datos vacios con los anteriores
-        for(let valor in Object.entries(estudianteBody)){
-            if(valor === ""){
-                estudianteBody.valor = estudiante.valor
-            }
-        }
-
-       
 
         const nuevosDatos = {
             _id: estudiante._id,
@@ -61,8 +54,8 @@ const actualizarEstudiante = async (req, res = response) => {
             rut : estudianteBody.rut,
             sexo : estudianteBody.sexo,
             email : estudianteBody.email,
-            establecimiento : estudiante.establecimiento,
-            edad : estudiante.edad,
+            establecimiento : estudianteBody.establecimiento,
+            edad : estudianteBody.edad,
             __v: estudiante.__v
         } 
        
@@ -96,8 +89,6 @@ const borrarEstudiante = async(req, res = response) => {
             });
         }
 
-        console.log(estudiante.id.toString())
-
         console.log(estudianteID)
 
         if(estudiante.id.toString() !== estudianteID){
@@ -121,10 +112,6 @@ const borrarEstudiante = async(req, res = response) => {
             msg: 'error al actualizar'
         })
     }
-    res.json({
-        ok: true,
-        msg : 'borrarEstudiante'
-    })
 }
 
 const obtenerTutor = async (req, res = response) => {
@@ -133,7 +120,8 @@ const obtenerTutor = async (req, res = response) => {
     // .populate
     res.json({
         ok: true,
-        msg : 'obtenerTutor'
+        msg : 'obtenerTutor',
+        tutores
     })
 }
 

@@ -120,18 +120,6 @@ const Horario = (props) => {
 
     /*Agrega, al arreglo, la hora al dia que se selecciona*/
     const checkHora = (diaSeleccionado, horaSeleccionada) => {
-        /*
-        horario.map(
-            (dia) => 
-                {
-                    if(Object.keys(dia)[0] === diaSeleccionado){
-                        if(!Object.values(dia)[0].includes(horaSeleccionada)){
-                            Object.values(dia)[0].push(horaSeleccionada)
-                        }
-                    }
-                }
-            )
-        */
         for(var dia of Object.entries(horario)){
             if(dia[0] === diaSeleccionado){
                 if(!dia[1].includes(horaSeleccionada)){
@@ -143,18 +131,6 @@ const Horario = (props) => {
 
     /*Quita, del arreglo, la hora del dia que se selecciona*/
     const uncheckHora = (diaSeleccionado, horaSeleccionada) => {
-        /*
-        horario.map(
-            (dia) => 
-                {
-                    if(Object.keys(dia)[0] === diaSeleccionado){
-                        if(Object.values(dia)[0].includes(horaSeleccionada)){
-                            Object.values(dia)[0].pop(horaSeleccionada)
-                        }
-                    }
-                }
-            )
-        */
         for(var dia of Object.entries(horario)){
             if(dia[0] === diaSeleccionado){
                 if(dia[1].includes(horaSeleccionada)){

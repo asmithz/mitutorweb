@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import missing_picture from '../../img/missing_picture.png';
 import BotonFormulario from '../botones/BotonFormulario';
 import SelectFormulario from '../botones/SelectFormulario';
+import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 import axios from 'axios'
 
 const api = axios.create({
@@ -11,33 +12,11 @@ const api = axios.create({
   baseURL: `http://localhost:2000/api/events`
 })
 
-const api_checkTOKEN = axios.create({
-  withCredentials: true, 
-  credentials: 'include',
-  baseURL: `http://localhost:2000/api/checkToken`
-})
-
 const EditarDatos = (props) => {
 
     const mi_token = localStorage.getItem('x-token')
-    const [estudianteID, setEstudianteID] = useState();
-    useEffect(() => {
-        const obtenerID = async () => {
-            try{
-                //obtener ID desde el token
-                const usuario_estudiante = await api_checkTOKEN.get('/checkUser',{
-                    headers: {
-                    'Content-type': 'application/json',
-                    'x-token': mi_token
-                    }
-                });
-                setEstudianteID(usuario_estudiante.data.usuario.id)
-            }catch(error){
-                console.log(error)
-            }
-        }
-        obtenerID();
-    }, [])
+    const estudianteID = ObtenerUsuarioID()
+    
     
     const actualizarEstudiante = async (datos) => {
         try{
@@ -55,7 +34,6 @@ const EditarDatos = (props) => {
             window.location.reload(false);
         }
     }
-    
     
     return(
         <div>
@@ -185,7 +163,35 @@ const PerfilEstudiante = (props) => {
         datosEstudiante();
         console.log(estudiante)
     }, [estudiante])
+    
+    const [borrarEstudiante, setBorrar] = useState(false);
+    const updateBorrarEstudiante = () => {
+        setBorrar(true);
+    }
 
+    const estudianteID = ObtenerUsuarioID();
+    const mi_token = localStorage.getItem('x-token');
+
+    useEffect(() => {
+        if(borrarEstudiante){
+            const borrar = async () => {
+                try{
+                    const response = await api.delete('/'+estudianteID, props.dato, {
+                        headers: {
+                        'Content-type': 'application/json',
+                        'x-token': mi_token
+                        }
+                    })
+                    alert("Gracias por utilizar la plataforma MiTutorWeb. Hasta pronto.")
+                    localStorage.removeItem('x-token')
+                    window.location.replace('/Inicio')
+                }catch(error){
+                    console.log(error)
+                }
+            }
+            borrar();
+        }
+    }, [borrarEstudiante])
     return(
         <div>
             {estudiante.length >= 1 &&
@@ -212,7 +218,7 @@ const PerfilEstudiante = (props) => {
                         <EditarDatos datos_estudiante={estudiante[0]} id_estudiante={props.datos_estudiante.id}/>
                 }
                 <div className="botones-perfil">
-                    <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar mi cuenta"/>
+                    <BotonFormulario className="boton-eliminar" func={updateBorrarEstudiante} nombre="boton" value="Borrar mi cuenta"/>
                 </div>
                 </div>
             </div>

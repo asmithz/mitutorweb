@@ -38,7 +38,8 @@ const datos_tutor = Schema({
         require: true
     },
     user: {
-        type: String
+        type: String,
+        unique: true
     },
     password: {
         type: String

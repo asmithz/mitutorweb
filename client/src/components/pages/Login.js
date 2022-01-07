@@ -28,14 +28,12 @@ const Login = () => {
       });
       console.log(usuario)
       localStorage.setItem('x-token', usuario.data.token)
-      console.log(usuario.data.login.data)
-      
-      if(usuario.data.login.hasOwnProperty('datos')){
-          alert("Bienvenido, " + usuario.data.login.datos.nombre + " " + usuario.data.login.datos.apellido)
+      if(usuario.data.hasOwnProperty("tutor")){
+          alert("Bienvenido, " + usuario.data.tutor.datos.nombre + " " + usuario.data.tutor.datos.apellido)
           window.location.href = '/Inicio';
       }
-      else{
-          alert("Bienvenido, " + usuario.data.login.nombre + " " + usuario.data.login.apellido)
+      else if(usuario.data.hasOwnProperty("estudiante")){
+          alert("Bienvenido, " + usuario.data.estudiante.nombre + " " + usuario.data.estudiante.apellido)
           window.location.href = '/Inicio';
       }
     }catch(error){

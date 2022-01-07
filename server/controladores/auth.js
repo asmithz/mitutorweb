@@ -60,6 +60,7 @@ const registrarTutor = async (req, res = response) => {
         tutor.datos.user = tutor.datos.nombre[0]+tutor.datos.apellido; 
         tutor.datos.password = tutor.datos.rut; 
         tutor.datos.calificacion = "0";
+        tutor.markModified('datos.password');
 
         //encriptar contraseña
         const salt = bcrypt.genSaltSync();
@@ -67,6 +68,7 @@ const registrarTutor = async (req, res = response) => {
 
         tutor.markModified('datos.user');
         tutor.markModified('datos.password');
+        tutor.markModified('datos.calificacion');
 
         console.log(tutor)
         await tutor.save();
@@ -92,15 +94,15 @@ const registrarTutor = async (req, res = response) => {
 const loginUsuario = async(req, res = response) => {
 
     const { user, password } = req.body;
-
+    let login = await Tutor.findOne({'datos.user': user});
+    console.log(login)
     try{
         // busca que exista el user en estudiantes
-        let login = await Estudiante.findOne({ user });
-
-        if( !login ){
+        let estudiante = await Estudiante.findOne({ user });
+        if( !estudiante ){
             // busca que exista el user en tutores
-            login = await Tutor.findOne({ user });
-            if( !login ){
+            let tutor = await Tutor.findOne({'datos.user': user});
+            if( !tutor ){
                 return res.status(400).json({
                     ok: false,
                     msg: 'el usuario no existe'
@@ -108,19 +110,28 @@ const loginUsuario = async(req, res = response) => {
             }
             else{
                 // confirmar los password
-                let validPassword2 = bcrypt.compareSync( password, login.datos.password );
-
+                let validPassword2 = bcrypt.compareSync( password, tutor.datos.password );
                 if( !validPassword2 ){
                     return res.status(400).json({
                         ok: false, 
                         msg: 'password incorrecto'
                     });
                 }
+            //geerar json token (jwt)
+            // generar jwt
+            const token = await generarJWT(tutor.datos.id, tutor.datos.tipo);
+            res.cookie('x-token', token, { httpOnly: true, maxAge: 86400, secure: true })
+            res.json({
+                ok:true,
+                msg: 'login',
+                tutor,
+                token
+            })
+                }
             }
-        }
         else{
             // confirmar los password
-            let validPassword = bcrypt.compareSync( password, login.password );
+            let validPassword = bcrypt.compareSync( password, estudiante.password );
 
             if( !validPassword ){
                 return res.status(400).json({
@@ -128,20 +139,17 @@ const loginUsuario = async(req, res = response) => {
                     msg: 'password incorrecto'
                 });
             }
+            //geerar json token (jwt)
+            // generar jwt
+            const token = await generarJWT(estudiante.id, estudiante.tipo);
+            res.cookie('x-token', token, { httpOnly: true, maxAge: 86400, secure: true })
+            res.json({
+                ok:true,
+                msg: 'login',
+                estudiante,
+                token
+            })
         }
-
-
-        //geerar json token (jwt)
-        // generar jwt
-        const token = await generarJWT(login.id, login.tipo);
-        res.cookie('x-token', token, { httpOnly: true, maxAge: 86400, secure: true })
-        res.json({
-            ok: true,
-            msg: 'logeado',
-            login,
-            token
-        })
-
     } catch(error){
         console.log(error)
         res.status(500).json({

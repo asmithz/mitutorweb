@@ -50,7 +50,7 @@ const Navbar = () => {
 				{localStorage.getItem('x-token') &&
 					<li className="nav-item">
 					<Link to="/">
-					<button type="button" onClick={salir} className="btn btn-primary" style={styles.navtext}>Salir</button>
+					<button type="button" onClick={salir} className="btn btn-primary" style={styles.navtext}>Cerrar Sesión</button>
 					</Link>
 					</li>
 				}
