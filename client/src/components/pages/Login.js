@@ -1,10 +1,9 @@
 import React from 'react';
-import { Formik, Form, ErrorMessage, useFormik, Field } from 'formik';
+import { Formik, Form, ErrorMessage,Field } from 'formik';
 import BotonFormulario from '../botones/BotonFormulario';
 import '../pages_css/Login.css'
 import { AiOutlineUser, AiFillLock } from 'react-icons/ai'
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
 
 const api = axios.create({
   withCredentials: true, 

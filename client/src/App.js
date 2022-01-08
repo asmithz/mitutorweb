@@ -7,7 +7,6 @@ import Login from './components/pages/Login'
 import SignUp from './components/pages/SignUp'
 import Bandeja from './components/pages/Bandeja'
 import Perfil  from './components/pages/Perfil';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	return (

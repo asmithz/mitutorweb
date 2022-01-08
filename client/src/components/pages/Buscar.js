@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../pages_css/Buscar.css';
-import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
-import FormularioAsignaturas from './FormulariosSignUp/FormularioAsignaturas';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import asignaturas from '../asignaturas/Asignaturas.json';
 import Horario from '../horario/Horario'
 import CheckBox from '../botones/Checkbox';
@@ -9,7 +8,7 @@ import Dropdown from '../botones/Dropdown';
 import BotonFormulario from '../botones/BotonFormulario';
 import missing_picture from '../../img/missing_picture.png';
 import axios from 'axios';
-import ModalBoton from '../botones/ModalBoton';
+import ModalBotonBuscar from '../botones/ModalBotonBuscar';
 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/events`
@@ -96,8 +95,14 @@ const TarjetaTutor = (props) => {
         <h6>Calificación: {props.datos_tutor.calificacion}</h6>
       </div>
       <div className="tarjeta-tutor-botones">
-        <ModalBoton className="boton-agregar" value="Ver Horario" title="titulo" content="contenido"/>
-        <ModalBoton className="boton-agregar" value="Asignaturas" title="titulo" content="contenido"/>
+        <ModalBotonBuscar className="boton-agregar" value="Horario" 
+          title={"Horario de "+props.datos_tutor.nombre+" "+props.datos_tutor.apellido} 
+          user={props.datos_tutor.user}
+          content={props.horario_tutor} tipo="horario" />
+        <ModalBotonBuscar className="boton-agregar" value="Asignaturas" 
+          title={"Asignaturas de "+props.datos_tutor.nombre+" "+props.datos_tutor.apellido} 
+          user={props.datos_tutor.user}
+          content={props.datos_tutor.asignaturas} tipo="asignaturas"/>
       </div>
       <div className="tarjeta-tutor-solicitud"> 
         <BotonFormulario className="boton-eliminar" value="Solicitar Tutoria"/>
@@ -148,7 +153,7 @@ const Buscar = () => {
   }
 
   const compararArr = (arr1, arr2) => {
-    if(arr2.length == 0){
+    if(arr2.length === 0){
       return true
     }
     for(let valor1 of arr2){
@@ -184,7 +189,7 @@ const Buscar = () => {
           tutoresFetch && 
           <>
             <Filtro func={updateFiltro} />
-            {tutoresFetch.length == 0 ?
+            {tutoresFetch.length === 0 ?
               <h2>No hay coincidencias</h2> 
             :
               <Tutores key="1" datos_tutores={tutoresFetch}/>

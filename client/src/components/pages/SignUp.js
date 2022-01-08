@@ -17,15 +17,6 @@ const validaciones = (values) => {
 }
 
 const SignUp = () => {
-    const [estado, setEstado] = useState(0);
-    // updateEstado -> avanza en el formulario
-    // estado = 0 -> tutor o estudiante
-    // estado = 1 -> datos personales 
-    // estado = 2 -> asignaturas
-    // estado = 3 -> horario
-    const updateEstado = () => {
-        setEstado(estado+1);
-    }
 
     const [tipo, setTipo] = useState('');
     const updateTipo = (nuevo_tipo) => {

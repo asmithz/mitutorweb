@@ -1,8 +1,7 @@
 import { Formik, Form } from 'formik';
 import React, { useState } from 'react';
 import BotonFormulario from '../botones/BotonFormulario';
-import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
-import { FaCheck, FaWindowClose, FaPencilAlt } from 'react-icons/fa'
+import { FaWindowClose, FaPencilAlt } from 'react-icons/fa'
 import './Horario.css';
 import axios from 'axios'
 
@@ -66,7 +65,6 @@ const Bloques = (props) => {
     };
 
     let bloque = '';
-        {
             (props.dia === "horario") ?
             bloque = <div hora={props.hora}>{props.hora}</div>
             :
@@ -87,7 +85,6 @@ const Bloques = (props) => {
                                 }
                         </div>
                      </div>
-        }
     return(
         <>{bloque}</>
     );
@@ -96,12 +93,10 @@ const Bloques = (props) => {
 const Horas = (props) => {
     let bloque = [];
     for(let i = 0; i < horas.length; i++){
-        {
             (props.dia === "horario") ?
             bloque.push(<Bloques hora={horas[i]} dia={props.dia} key={i}/>)
             :
             bloque.push(<Bloques hora={horas[i]} dia={props.dia} key={i} check={props.check} uncheck={props.uncheck}/>)
-        }
     }
     return(
         <>{bloque}</>

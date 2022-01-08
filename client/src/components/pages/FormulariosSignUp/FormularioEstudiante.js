@@ -1,10 +1,7 @@
-import React, { useRef, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage, useField } from 'formik';
 import BotonFormulario from '../../botones/BotonFormulario';
 import SelectFormulario from '../../botones/SelectFormulario';
-import CheckBox from '../../botones/Checkbox';
 import axios from 'axios'
-import { useHistory } from 'react-router';
 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/log`

@@ -1,0 +1,19 @@
+.asignatura-tutor{
+    text-align: left;
+    text-justify: left;
+}
+
+.horario-tutor{
+    text-align: left;
+    text-justify: left;
+}
+
+.horario-dia{
+    padding-left: 30px;
+
+}
+
+.horario-hora{
+    padding-left: 60px;
+
+}

@@ -1,10 +1,9 @@
-import React , { useEffect, useState } from 'react';
+import React , { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage  } from 'formik';
 import BotonFormulario from '../../botones/BotonFormulario';
 import FormularioAsignaturas from './FormularioAsignaturas';
 import SelectFormulario from '../../botones/SelectFormulario';
 import Horario from '../../horario/Horario'
-import { horario } from '../../horario/Horario'
 
 const validacion = () => {
 
