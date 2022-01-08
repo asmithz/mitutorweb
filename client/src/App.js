@@ -7,6 +7,7 @@ import Login from './components/pages/Login'
 import SignUp from './components/pages/SignUp'
 import Bandeja from './components/pages/Bandeja'
 import Perfil  from './components/pages/Perfil';
+import ChatVirtual from './components/chat/ChatVirtual';
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path='/SignUp' exact component={SignUp}/>
 						<div>
 							<Navbar />
+							<Route path='/ChatVirtual' exact component={ChatVirtual}/>
 							<Route path='/Inicio' exact component={Inicio}/>
 							<Route path='/Buscar' exact component={Buscar}/>
 						{localStorage.getItem('x-token') && 

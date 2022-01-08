@@ -1,0 +1,95 @@
+.chat-tarjeta{
+    display: grid;
+    grid-template-rows: 650px 50px;
+    grid-template-columns: auto;
+    background: #ffffff;
+    box-shadow: 2px 2px 3px 3px #e9e9e9;
+    width: 800px;
+    height: 780px;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #c0c0c0;
+    margin: auto;
+    grid-gap: 20px;
+}
+
+.chat-tarjeta:hover{
+    box-shadow: 2px 2px 3px 3px #cfcfcf;
+}
+
+.mensajes{
+    overflow: auto;
+}
+
+.chat-bottom{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+}
+
+.chat-input-mensaje{
+    display: grid;
+    grid-template-columns: 500px auto auto;
+    background: #ffffff;
+    border-color: #c0c0c0;
+}
+
+.mensaje-usuario{
+    display: grid;
+    color:#ffffff;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    background: #2f69c0;
+    box-shadow: 2px 2px 3px 3px #cbe2ff;
+    width: 300px;
+    min-height: 5%;
+    max-height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #2f69c0;
+    text-align: left;
+    grid-gap: 20px;
+    margin-right: 0px;
+    margin-bottom: 5px;
+    margin-left: auto;
+}
+
+.mensajes p{
+    max-width: 260px;
+    word-break:break-all; 
+}
+
+.mensaje-otro-usuario{
+    display: grid;
+    color:#ffffff;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    background: #8298b9;
+    box-shadow: 2px 2px 3px 3px #cbe2ff;
+    width: 300px;
+    min-height: 5%;
+    max-height: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #8298b9;
+    text-align: left;
+    grid-gap: 20px;
+    margin-right: auto;
+    margin-bottom: 5px;
+    margin-left: 0px;
+}
