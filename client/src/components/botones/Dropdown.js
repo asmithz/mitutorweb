@@ -20,6 +20,16 @@ const Dropdown = (props) => {
                     }
             </div>
         }
+        {props.tipo === "horario" &&
+            <div className="dropdown">
+                <button className="button-dropdown" type="button" onClick={updateMostrar}>{props.value}</button>
+                    {mostrar === true && 
+                        <div className="dropdown-card">
+                            {props.component} 
+                        </div> 
+                    }
+            </div>
+        }
         </div>
     );
 }

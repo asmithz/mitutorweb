@@ -14,13 +14,13 @@ const ObtenerUsuarioID = () => {
         const obtenerID = async () => {
             try{
                 //obtener ID desde el token
-                const usuario_estudiante = await api_checkTOKEN.get('/checkUser',{
+                const usuario = await api_checkTOKEN.get('/checkUser',{
                     headers: {
                     'Content-type': 'application/json',
                     'x-token': mi_token
                     }
                 });
-                setUsuarioID(usuario_estudiante.data.usuario.id)
+                setUsuarioID(usuario.data.usuario.id)
             }catch(error){
                 console.log(error)
             }

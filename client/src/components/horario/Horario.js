@@ -44,15 +44,19 @@ const api = axios.create({
 
 const registrarHorario = async (values) => {
     console.log(values)
-    await api.post('/registrarTutor', values);
+    try{
+        await api.post('/registrarTutor', values);
+        alert("Se ha registrado! ")
+        window.location.replace("/Login");
+    }catch{
+        alert("Error intente denuevo")
+        window.location.reload(false);
+    }
 }
 
 const apiHorario = axios.create({
     baseURL: `http://localhost:2000/api/events`
 })
-
-
-
 
 const Bloques = (props) => {
     const[seleccion, setSeleccion] = useState(false);
@@ -185,7 +189,7 @@ const Horario = (props) => {
                     initialValues={{
                         horario: horario
                     }}
-                    onSubmit={values => console.log(values)}
+                    onSubmit={values => publicarHorario(values)}
                 >
                     <Form>
                         <BotonFormulario className="boton-aceptar" name="boton" value="Publicar Horario" />
@@ -196,11 +200,10 @@ const Horario = (props) => {
     }
 
     const mi_token = localStorage.getItem('x-token')
-    const tutorID = ObtenerUsuarioID();
-
+    /*Publica el horario luego de modificarlo*/
     const publicarHorario = async (nuevoHorario) => {
         try{
-            await apiHorario.put('/actualizarHorario/:'+tutorID, nuevoHorario,{
+            await apiHorario.put('/actualizarHorario/'+props.tutor_id, nuevoHorario,{
                 headers: {
                 'Content-type': 'application/json',
                 'x-token': mi_token

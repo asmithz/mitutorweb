@@ -9,7 +9,7 @@ import Dropdown from '../botones/Dropdown';
 import BotonFormulario from '../botones/BotonFormulario';
 import missing_picture from '../../img/missing_picture.png';
 import axios from 'axios';
-import ModalBoton from '../../components/botones/ModalBoton';
+import ModalBoton from '../botones/ModalBoton';
 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/events`
@@ -34,7 +34,7 @@ const Filtro = (props) => {
             apellido: '',
             asignaturas: '',
             calificacion: '',
-            horario: [''],
+            horario: '',
           }}
           onSubmit={values => {props.func(values)}}>
         <Form>
@@ -49,25 +49,29 @@ const Filtro = (props) => {
               <label for="floatingApellido">Apellido</label>
               <ErrorMessage name="apellido"/>
             </div>
-            <div >
-                <Dropdown tipo="checkboxes" value="Asignaturas" 
-                  component={
-                    <div>
-                      <span>Matemática</span>
-                      <Asignaturas name="asignaturas" value="Matemática"/>
-                      <span>Informática</span>
-                      <Asignaturas name="asignaturas" value="Informática"/>
-                      <span>Física</span>
-                      <Asignaturas name="asignaturas" value="Física"/>
-                    </div>
-                  }/>
+            <div>
+              <Dropdown tipo="checkboxes" value="Asignaturas" 
+                component={
+                  <div>
+                    <span>Matemática</span>
+                    <Asignaturas name="asignaturas" value="Matemática"/>
+                    <span>Informática</span>
+                    <Asignaturas name="asignaturas" value="Informática"/>
+                    <span>Física</span>
+                    <Asignaturas name="asignaturas" value="Física"/>
+                  </div>
+                }/>
             </div>
             <div> 
-              {
-                /* 
-              <Dropdown tipo="horario" value="Horario" component={<Horario name="horario" accion="buscar-horario"/>}/> 
-                */
-              }
+                  {/*
+                    <Horario name="horario" accion="buscar-horario"/>
+              <Dropdown tipo="horario" value="Horario" 
+                component={
+                  <div>
+                    <Horario name="horario" accion="buscar-horario"/>
+                  </div>
+                  }/> 
+                */}
             </div>
             <div>
             <BotonFormulario className="btn btn-primary" nombre="boton" value="Buscar"/>
@@ -118,14 +122,12 @@ const Buscar = () => {
   const[filtro, setFiltro] = useState(false);
   const updateFiltro = (values) => {
     setFiltro(!filtro)
-    /*
-    console.log("yes")
+    
     console.log(values)
-    */
-    //admitir minusculas
+    
     //logica filtrar
-    setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre, values.nombre) 
-    && compararDato(tutor.datos.apellido, values.apellido)
+    setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre.toLowerCase(), values.nombre.toLowerCase()) 
+    && compararDato(tutor.datos.apellido.toLowerCase(), values.apellido.toLowerCase())
     && compararArr(tutor.datos.asignaturas, values.asignaturas)))
     //setTutoresFetch(tutoresFetch.filter((tutor) => tutor.datos.apellido === values.apellido))
     //setTutoresFetch(tutoresFetch.filter((tutor) => compararArr(tutor.datos.asignaturas, values.asignaturas)))
@@ -149,14 +151,13 @@ const Buscar = () => {
     if(arr2.length == 0){
       return true
     }
-    for(let valor1 of arr1){
-      for(let valor2 of arr2){
-        if(valor1 === valor2){
-          return true
-        }
+    for(let valor1 of arr2){
+      if(!(arr1.includes(valor1))){
+        console.log(valor1)
+        return false
       }
     }
-    return false
+    return true
   }
   
   const[tutoresFetch, setTutoresFetch] = useState([]);

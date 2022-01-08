@@ -27,9 +27,10 @@ const EditarDatos = (props) => {
                 'x-token': mi_token
                 }
             });
-
+            alert("Sus datos se actualizaron correctamente")
             window.location.reload(false);
         }catch(error){
+            alert("Algo ocurrio, error.")
             console.log(error)
             window.location.reload(false);
         }
@@ -176,7 +177,7 @@ const PerfilEstudiante = (props) => {
         if(borrarEstudiante){
             const borrar = async () => {
                 try{
-                    const response = await api.delete('/'+estudianteID, props.dato, {
+                    const response = await api.delete('/borrarEstudiante'+estudianteID, props.dato, {
                         headers: {
                         'Content-type': 'application/json',
                         'x-token': mi_token

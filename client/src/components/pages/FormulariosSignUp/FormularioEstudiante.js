@@ -15,8 +15,15 @@ const validaciones = () => {
 }
 
 const crearEstudiante = async (values) => {
-    await api.post('/registrarEstudiante', values);
     console.log(values)
+    try{
+        await api.post('/registrarEstudiante', values);
+        alert("Se ha registrado! ")
+        window.location.replace('/Login');
+    }catch{
+        alert("Error intente denuevo")
+        window.location.reload(false);
+    }
 }
 
 const FormularioEstudiante = (props) => {

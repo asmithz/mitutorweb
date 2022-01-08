@@ -75,7 +75,7 @@ const registrarTutor = async (req, res = response) => {
         // generar jwt
         const token = await generarJWT(tutor.id, tutor.datos.tipo);
         res.cookie('x-token', token, { httpOnly: true, maxAge: 86400 })
-
+        
         res.status(201).json({
             ok: true,
             msg: 'register'

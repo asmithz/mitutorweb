@@ -13,7 +13,7 @@ router.get('/obtenerEstudiante', obtenerEstudiante);
 router.put('/actualizarEstudiante/:id', actualizarEstudiante);
 
 //borrar estudiante
-router.delete('/:id',borrarEstudiante);
+router.delete('/borrarEstudiante/:id',borrarEstudiante);
 
 //obtener tutor
 router.get('/obtenerTutor', obtenerTutor);
@@ -25,7 +25,7 @@ router.put('/actualizarTutor/:id', actualizarTutor);
 router.put('/actualizarHorario/:id', actualizarHorario);
 
 //borrar tutor
-router.delete('/:id',borrarTutor);
+router.delete('/borrarTutor/:id',borrarTutor);
 
 //obtener tutores
 router.get('/obtenerTutores', obtenerTutores);

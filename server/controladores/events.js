@@ -16,8 +16,6 @@ const obtenerEstudiante = async (req, res = response) => {
 
 const actualizarEstudiante = async (req, res = response) => {
 
-    //console.log(req.body)
-    //console.log(req.params.id)
     const estudianteID = req.params.id;
     const estudianteBody = req.body
 
@@ -38,17 +36,33 @@ const actualizarEstudiante = async (req, res = response) => {
                 msg: 'sin privilegios'
             });
         }
-        //console.log(estudiante)
-        /*
-        let nuevo = {
-            _id: estudiante._id,
-            __v: estudiante.__v}
 
-        */
-        //rellenar datos vacios con los anteriores
+        // checkear si esta en blaco :c estaba apurado xD
+        if(!estudianteBody.name){
+            estudianteBody.name = estudiante.nombre
+        }
+        if(!estudianteBody.apellido){
+            estudianteBody.apellido = estudiante.apellido
+        }
+        if(!estudianteBody.rut){
+            estudianteBody.rut = estudiante.rut
+        }
+        if(!estudianteBody.sexo){
+            estudianteBody.sexo = estudiante.sexo
+        }
+        if(!estudianteBody.email){
+            estudianteBody.email = estudiante.email
+        }
+        if(!estudianteBody.establecimiento){
+            estudianteBody.establecimiento = estudiante.establecimiento
+        }
+        if(!estudianteBody.edad){
+            estudianteBody.edad = estudiante.edad
+        }
 
         const nuevosDatos = {
             _id: estudiante._id,
+            tipo: estudiante.tipo,
             nombre : estudianteBody.nombre,
             apellido : estudianteBody.apellido,
             rut : estudianteBody.rut,
@@ -56,6 +70,8 @@ const actualizarEstudiante = async (req, res = response) => {
             email : estudianteBody.email,
             establecimiento : estudianteBody.establecimiento,
             edad : estudianteBody.edad,
+            user: estudiante.user,
+            password: estudiante.password,
             __v: estudiante.__v
         } 
        
@@ -126,29 +142,102 @@ const obtenerTutor = async (req, res = response) => {
 }
 
 const actualizarTutor = async (req, res = response) => {
-    res.json({
-        ok: true,
-        msg : 'actualizarTutor'
-    })
+
+    const tutorID = req.params.id;
+    const tutorBody = req.body;
+    const busqueda = { 'datos._id': tutorID};
+
+    try{
+        const tutor = await Tutor.findOne(busqueda);
+
+        if (!tutor){
+            return res.status(404).json({
+                ok: false,
+                msg: 'no existe ese id'
+            });
+        }
+
+        // checkear si esta en blaco :c estaba apurado xD
+        if(!tutorBody.nombre){
+            tutorBody.nombre = tutor.datos.nombre;
+            console.log(tutorBody.nombre)
+        }
+        if(!tutorBody.apellido){
+            tutorBody.apellido = tutor.datos.apellido;
+        }
+        if(!tutorBody.rut){
+            tutorBody.rut = tutor.datos.rut;
+        }
+        if(!tutorBody.sexo){
+            tutorBody.sexo = tutor.datos.sexo;
+        }
+        if(!tutorBody.email){
+            tutorBody.email = tutor.datos.email;
+        }
+        if(!tutorBody.establecimiento){
+            tutorBody.establecimiento = tutor.datos.establecimiento;
+        }
+        if(!tutorBody.edad){
+            tutorBody.edad = tutor.datos.edad;
+        }
+        if(!tutorBody.asignaturas[0]){
+            tutorBody.asignaturas = tutor.datos.asignaturas;
+        }
+        
+        const datosTutor = {
+            tipo: tutor.datos.tipo,
+            nombre : tutorBody.nombre,
+            apellido : tutorBody.apellido,
+            rut : tutorBody.rut,
+            sexo : tutorBody.sexo,
+            email : tutorBody.email,
+            establecimiento : tutorBody.establecimiento,
+            edad : tutorBody.edad,
+            asignaturas: tutorBody.asignaturas,
+            _id: tutorID,
+            user: tutor.datos.user,
+            password: tutor.datos.password,
+            calificacion: tutor.datos.calificacion
+        }
+        
+        const nuevosDatos = {
+            _id: tutor.id,
+            datos: datosTutor,
+            horario: tutor.horario
+        } 
+       
+        const tutorActualizado = await Tutor.findOneAndUpdate( busqueda, nuevosDatos, { new: true} );
+        //console.log(tutorActualizado)
+
+        return res.json({
+            ok: true,
+            msg: "tutor actualizado"
+        });
+
+    } catch(error){
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'error al actualizar'
+        })
+    }
 }
 
 const actualizarHorario = async (req, res = response) => {
 
     const { horario } = req.body;
-    const tutorID = req.params.id;
+    const id = req.params.id;
+    const busqueda = { 'datos._id': id};
     try{
-        const tutor = await Tutor.findById(tutorID);
+        const tutor = await Tutor.findOne(busqueda);
         console.log(tutor)
-        console.log(horario)
         const nuevo_tutor = {
-            _id: tutorID,
+            _id: tutor.id,
             datos: tutor.datos,
             horario: horario,
             __v: tutor.__v
         }
-        console.log(nuevo_tutor)
-
-        const horarioActualizado = await Tutor.findByIdAndUpdate( tutorID, nuevo_tutor, { new: true} );
+        const horarioActualizado = await Tutor.findOneAndUpdate( busqueda, nuevo_tutor, { new: true} );
 
         return res.json({
             ok: true,
@@ -159,17 +248,40 @@ const actualizarHorario = async (req, res = response) => {
     }catch(error){
         console.log(error)
     }
-
-    res.json({
-        datos
-    })
 }
 
-const borrarTutor = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg : 'borrarTutor'
-    })
+const borrarTutor = async (req, res = response) => {
+
+    const tutorID = req.params.id;
+    const busqueda = { 'datos._id': tutorID};
+    console.log(tutorID)
+
+    try{
+
+        const tutor = await Tutor.findOne( busqueda );
+        console.log(tutor)
+
+        if (!tutor){
+            return res.status(404).json({
+                ok: false,
+                msg: 'no existe ese id'
+            });
+        }
+
+        await Tutor.findByIdAndDelete( tutor.id );
+
+        return res.json({
+            ok: true,
+            msg: 'borrado'
+        });
+
+    } catch(error){
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'error al actualizar'
+        })
+    }
 }
 
 const obtenerTutores = async (req, res = response) => {

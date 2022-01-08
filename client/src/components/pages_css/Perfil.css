@@ -57,6 +57,11 @@
     margin-right: auto;
 }
 
+.asignaturas-tutor{
+    text-align: left;
+    padding-left: 220px;
+}
+
 img{
     max-height: 100%;
     max-width: 100%;

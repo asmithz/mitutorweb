@@ -15,16 +15,32 @@ const api = axios.create({
   baseURL: `http://localhost:2000/api/events`
 })
 
-const api_checkTOKEN = axios.create({
-  withCredentials: true, 
-  credentials: 'include',
-  baseURL: `http://localhost:2000/api/checkToken`
-})
 const EditarDatos = (props) => {
 
     const [datos_tutor, setDatos] = useState({})
     const obtenerDatos = (values) => {
         setDatos({...values})
+    }
+
+    const mi_token = localStorage.getItem('x-token')
+    const tutorID = ObtenerUsuarioID()
+    
+    const actualizarTutor = async (datos) => {
+        try{
+            //actualizar 
+            await api.put('/actualizarTutor/'+tutorID, datos, {
+                headers: {
+                'Content-type': 'application/json',
+                'x-token': mi_token
+                }
+            });
+            alert("Sus datos se actualizaron correctamente")
+            window.location.reload(false);
+        }catch(error){
+            console.log(error)
+            alert("Algo ocurrio, error")
+            window.location.reload(false);
+        }
     }
 
     return(
@@ -39,7 +55,7 @@ const EditarDatos = (props) => {
                 establecimiento: '',
                 asignaturas: ['']
                 }}
-                onSubmit={values => console.log(values)}
+                onSubmit={values => actualizarTutor(values)}
                 > 
                 <Form>
                     <div className="editar-perfil">
@@ -129,12 +145,23 @@ const MostrarDatos = (props) => {
                 <label for="floatingSexo">Sexo: {props.datos_tutor.datos.sexo}</label>
             </div>
         </div>
-
+        <h3>Las asignaturas que enseño son:</h3>
+        <ul className="asignaturas-tutor">
+        {
+            props.datos_tutor.datos.asignaturas.map(asignatura => (
+                <li>{asignatura}</li>
+            ))
+        }
+        </ul>
         </>
     )
 }
 
 const PerfilTutor = (props) => {
+
+    const mi_token = localStorage.getItem('x-token')
+    const tutorID = ObtenerUsuarioID();
+
     const [editarDatos, seteditarDatos] = useState(false);
     const updateEditar = () => {
         seteditarDatos(true)
@@ -165,18 +192,17 @@ const PerfilTutor = (props) => {
     
     const [borrarTutor, setBorrar] = useState(false);
     const updateBorrarTutor = () => {
-        setBorrar(true);
+        let confirmar = window.confirm("Estimado/a "+tutor[0].datos.nombre+" "+tutor[0].datos.apellido+", desea eleminar su cuenta?")
+        if(confirmar){
+            setBorrar(true);
+        }
     }
-
-    const mi_token = localStorage.getItem('x-token')
-    const tutorID = ObtenerUsuarioID();
-
 
     useEffect(() => {
         if(borrarTutor){
             const borrar = async () => {
                 try{
-                    const response = await api.delete('/'+tutorID, props.dato, {
+                    await api.delete('/borrarTutor/'+tutorID, {
                         headers: {
                         'Content-type': 'application/json',
                         'x-token': mi_token
@@ -215,10 +241,10 @@ const PerfilTutor = (props) => {
                                 <MostrarDatos datos_tutor={tutor[0]} />
                                 <BotonFormulario func={updateEditar} className="boton-editar" nombre="boton-editar" value="Editar Datos" />
                                 <div className="botones-perfil">
-                                    <BotonFormulario className="boton-eliminar" nombre="boton" value="Borrar mi cuenta"/>
+                                    <BotonFormulario className="boton-eliminar" func={updateBorrarTutor} nombre="boton" value="Borrar mi cuenta"/>
                                 </div>
                                 <div>
-                                    <Horario accion="modificar" titulo="Publicar Horario"/>
+                                    <Horario accion="modificar" titulo="Publicar Horario" tutor_id={tutorID}/>
                                 </div>
                             </>
                         :
