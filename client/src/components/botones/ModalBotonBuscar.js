@@ -54,7 +54,6 @@ const ModalBotonBuscar = (props) => {
                             let horas = dia[1].map((hora, i) => {
                               return hora
                             })
-                                    console.log(horas)
                             return <>
                                     <dt className="horario-dia" key={i}>{dia[0]}</dt> 
                                     { horas.length === 0 ? 

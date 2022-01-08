@@ -10,7 +10,6 @@ const Dropdown = (props) => {
 
     return(
         <div>
-        {props.tipo === "checkboxes" &&
             <div className="dropdown">
                 <button className="button-dropdown" type="button" onClick={updateMostrar}>{props.value}</button>
                     {mostrar === true && 
@@ -19,17 +18,7 @@ const Dropdown = (props) => {
                         </div> 
                     }
             </div>
-        }
-        {props.tipo === "horario" &&
-            <div className="dropdown">
-                <button className="button-dropdown" type="button" onClick={updateMostrar}>{props.value}</button>
-                    {mostrar === true && 
-                        <div className="dropdown-card">
-                            {props.component} 
-                        </div> 
-                    }
-            </div>
-        }
+        
         </div>
     );
 }

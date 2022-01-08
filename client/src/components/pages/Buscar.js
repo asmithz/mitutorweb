@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import '../pages_css/Buscar.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import asignaturas from '../asignaturas/Asignaturas.json';
-import Horario from '../horario/Horario'
 import CheckBox from '../botones/Checkbox';
 import Dropdown from '../botones/Dropdown';
 import BotonFormulario from '../botones/BotonFormulario';
 import missing_picture from '../../img/missing_picture.png';
 import axios from 'axios';
 import ModalBotonBuscar from '../botones/ModalBotonBuscar';
+import RadioFormulario from '../botones/RadioFormulario';
 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/events`
@@ -32,8 +32,8 @@ const Filtro = (props) => {
             nombre: '',
             apellido: '',
             asignaturas: '',
-            calificacion: '',
             horario: '',
+            calificacion: ''
           }}
           onSubmit={values => {props.func(values)}}>
         <Form>
@@ -62,15 +62,43 @@ const Filtro = (props) => {
                 }/>
             </div>
             <div> 
-                  {/*
-                    <Horario name="horario" accion="buscar-horario"/>
-              <Dropdown tipo="horario" value="Horario" 
+              <Dropdown tipo="checkboxes" value="Horario" 
                 component={
                   <div>
-                    <Horario name="horario" accion="buscar-horario"/>
+                    <span name="horario">Días</span>
+                      <CheckBox name="horario" key="l-1" value="Lunes"/>
+                      <CheckBox name="horario" key="ma-1" value="Martes"/>
+                      <CheckBox name="horario" key="mi-1" value="Miércoles"/>
+                      <CheckBox name="horario" key="j-1" value="Jueves"/>
+                      <CheckBox name="horario" key="v-1" value="Viernes"/>
+                      <CheckBox name="horario" key="s-1" value="Sábado"/>
+                      <CheckBox name="horario" key="d-1" value="Domingo"/>
                   </div>
-                  }/> 
-                */}
+                }/>
+            </div>
+            <div> 
+              <Dropdown tipo="checkboxes" value="Calificación" 
+                component={
+                  <div>
+                    <span>Mínima puntuación</span>
+                    <br/>
+                      <Field type="radio" name="calificacion" key="c-1" id="c-1" value="1.0" style={{marginRight: 10}}/>
+                      <label for="c-1">1.0</label>
+                    <br/>
+                      <Field type="radio" name="calificacion" key="c-2" id="c-2" value="2.0" style={{marginRight: 10}}/>
+                      <label for="c-2">2.0</label>
+                    <br/>
+                      <Field type="radio" name="calificacion" key="c-3" id="c-3" value="3.0" style={{marginRight: 10}}/>
+                      <label for="c-3">3.0</label>
+                    <br/>
+                      <Field type="radio" name="calificacion" key="c-4" id="c-4" value="4.0" style={{marginRight: 10}}/>
+                      <label for="c-4">4.0</label>
+                    <br/>
+                      <Field type="radio" name="calificacion" key="c-5" id="c-5" value="5.0" style={{marginRight: 10}}/>
+                      <label for="c-5">5.0</label>
+                    <br/>
+                  </div>
+                }/>
             </div>
             <div>
             <BotonFormulario className="btn btn-primary" nombre="boton" value="Buscar"/>
@@ -128,14 +156,37 @@ const Buscar = () => {
   const updateFiltro = (values) => {
     setFiltro(!filtro)
     
-    console.log(values)
     
     //logica filtrar
     setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre.toLowerCase(), values.nombre.toLowerCase()) 
     && compararDato(tutor.datos.apellido.toLowerCase(), values.apellido.toLowerCase())
-    && compararArr(tutor.datos.asignaturas, values.asignaturas)))
-    //setTutoresFetch(tutoresFetch.filter((tutor) => tutor.datos.apellido === values.apellido))
-    //setTutoresFetch(tutoresFetch.filter((tutor) => compararArr(tutor.datos.asignaturas, values.asignaturas)))
+    && compararArr(tutor.datos.asignaturas, values.asignaturas)
+    && checkDia(tutor.horario, values.horario)
+    && checkCalificacion(tutor.datos.calificacion, values.calificacion)
+    ))
+  }
+
+  const checkCalificacion = (tutorCal, selectCal) =>{
+    if(parseInt(tutorCal) >= parseInt(selectCal)){
+      return true
+    }
+    else{
+      return false
+    }
+
+  }
+
+  const checkDia = (horario, horarioSelec) => {
+    for(const diaSelec in horarioSelec){
+      for(let dia of Object.keys(horario)){
+        if(dia === horarioSelec[diaSelec] && dia !== "_id"){
+          if(horario[dia].length === 0){
+            return false
+          }
+        }
+      }
+    }
+    return true
   }
 
   const compararDato = (dato1, dato2) => {
@@ -158,7 +209,6 @@ const Buscar = () => {
     }
     for(let valor1 of arr2){
       if(!(arr1.includes(valor1))){
-        console.log(valor1)
         return false
       }
     }
