@@ -8,10 +8,14 @@ import BotonFormulario from '../botones/BotonFormulario';
 import missing_picture from '../../img/missing_picture.png';
 import axios from 'axios';
 import ModalBotonBuscar from '../botones/ModalBotonBuscar';
-import RadioFormulario from '../botones/RadioFormulario';
+import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 
 const api = axios.create({
     baseURL: `http://localhost:2000/api/events`
+})
+
+const api_peticion = axios.create({
+    baseURL: `http://localhost:2000/api/peticion`
 })
 
 /*Componente filtro de asignaturas(los checkbox)*/
@@ -33,7 +37,7 @@ const Filtro = (props) => {
             apellido: '',
             asignaturas: '',
             horario: '',
-            calificacion: ''
+            calificacion: '1.0'
           }}
           onSubmit={values => {props.func(values)}}>
         <Form>
@@ -111,6 +115,30 @@ const Filtro = (props) => {
 }
 
 const TarjetaTutor = (props) => {
+  const mi_token = localStorage.getItem('x-token')
+  const estudianteID = ObtenerUsuarioID()
+  const enviarSolicitud = async (id_tutor) => {
+    try{
+      const response = await api_peticion.post('/agregarPeticion', 
+                { estudiante_id: estudianteID, tutor_id: id_tutor }, 
+                  {
+                  headers: {
+                  'Content-type': 'application/json',
+                  'x-token': mi_token
+                  }
+                  }
+                )
+                console.log(response)
+      if(!response.data.ok){
+        alert("Ya realizó una solicitud de chat virtual con este tutor anteriormente.")
+      }
+      else{
+        alert("Usted realizó una solicitud de chat virtual.")
+      }
+    }catch(error){
+      console.log(error)
+    }
+  }
   return(
     <div className="tarjeta-tutor" key={props.key_tutor}>
       <div className="tarjeta-tutor-imagen">
@@ -133,7 +161,7 @@ const TarjetaTutor = (props) => {
           content={props.datos_tutor.asignaturas} tipo="asignaturas"/>
       </div>
       <div className="tarjeta-tutor-solicitud"> 
-        <BotonFormulario className="boton-eliminar" value="Solicitar Tutoria"/>
+        <BotonFormulario func={() => enviarSolicitud(props.datos_tutor._id)} className="boton-eliminar" value="Solicitar Tutoria"/>
       </div>
     </div>
   );

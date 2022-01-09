@@ -187,7 +187,6 @@ const PerfilTutor = (props) => {
 
         }
         datosTutor();
-        console.log(tutor)
     }, [tutor])
     
     const [borrarTutor, setBorrar] = useState(false);

@@ -1,11 +1,15 @@
 import './ChatVirtual.css'
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, isObject } from 'formik';
 import BotonFormulario from '../botones/BotonFormulario';
+import io from 'socket.io-client'
 
 const ChatVirtual = () => {
-    const mensaje = "";
-    const enviarMensaje = () => {
+    var socket = io('http://localhost:2000/')
+    socket.on("connection")
 
+    const mensaje = "";
+    const enviarMensaje = (mensaje) => {
+        socket.emit("mensaje", mensaje)
     }
 
     const solicitarEnlace = () => {
@@ -21,7 +25,6 @@ const ChatVirtual = () => {
                     <div className="mensaje-usuario">
                         <p className="max1"></p>
                     </div>
-
                     <div className="mensaje-otro-usuario">
                         <p className="max1"></p>
                     </div>
@@ -31,7 +34,7 @@ const ChatVirtual = () => {
                     <Formik initialValues={{
                         mensaje: ''
                     }}
-                    onSubmit={values => console.log(values)}>
+                    onSubmit={values => enviarMensaje(values)}>
                         <Form>
                             <div className="chat-input-mensaje">
                                 <div className="form-floating">

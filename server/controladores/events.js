@@ -105,8 +105,6 @@ const borrarEstudiante = async(req, res = response) => {
             });
         }
 
-        console.log(estudianteID)
-
         if(estudiante.id.toString() !== estudianteID){
             return res.status(401).json({
                 ok: false,
@@ -254,12 +252,10 @@ const borrarTutor = async (req, res = response) => {
 
     const tutorID = req.params.id;
     const busqueda = { 'datos._id': tutorID};
-    console.log(tutorID)
 
     try{
 
         const tutor = await Tutor.findOne( busqueda );
-        console.log(tutor)
 
         if (!tutor){
             return res.status(404).json({
