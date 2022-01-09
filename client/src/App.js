@@ -16,9 +16,9 @@ function App() {
 				<Switch>
 					<Route path='/Login' exact component={Login}/>
 					<Route path='/SignUp' exact component={SignUp}/>
+					<Route path='/ChatVirtual/:id' exact component={ChatVirtual}/>
 						<div>
 							<Navbar />
-							<Route path='/ChatVirtual' exact component={ChatVirtual}/>
 							<Route path='/Inicio' exact component={Inicio}/>
 							<Route path='/Buscar' exact component={Buscar}/>
 						{localStorage.getItem('x-token') && 

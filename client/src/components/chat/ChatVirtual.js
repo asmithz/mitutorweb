@@ -2,11 +2,12 @@ import './ChatVirtual.css'
 import { Formik, Form, Field, ErrorMessage, isObject } from 'formik';
 import BotonFormulario from '../botones/BotonFormulario';
 import io from 'socket.io-client'
+import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 
-const ChatVirtual = () => {
-    var socket = io('http://localhost:2000/')
-    socket.on("connection")
+const socket = io('http://localhost:2000/')
+socket.on("connection")
 
+const ChatVirtual = (props) => {
     const enviarMensaje = (mensaje) => {
         socket.emit("mensaje", mensaje)
     }
@@ -17,7 +18,7 @@ const ChatVirtual = () => {
 
     return(
         <div>
-            <h1>Este es su Chat Virtual</h1>
+            <br/>
             <h1>Chat Virtual</h1>
             <div className="chat-tarjeta">
                 <div className="mensajes">
@@ -31,6 +32,7 @@ const ChatVirtual = () => {
                 <div className="chat-bottom">
                     <BotonFormulario className="btn btn-primary" nombre="boton" value="Zoom"/>
                     <Formik initialValues={{
+                        emisor: '',
                         mensaje: ''
                     }}
                     onSubmit={values => enviarMensaje(values)}>

@@ -6,7 +6,29 @@ const ingresarChat = async () => {
 
 }
 
-const eliminarChat = async () => {
+const eliminarChat = async (req, res = response) => {
+    const id_chat = req.params.id
+    console.log(id_chat)
+
+    try{
+        const chat = await ChatVirtual.findById(id_chat)
+        if(!chat){
+            return res.status(400).json({
+                ok: false,
+                msg: "chat no encontrado"
+            })
+        }
+
+        await ChatVirtual.findByIdAndDelete(id_chat);
+        res.json({
+            ok: true,
+            msg: "exito al eliminar"
+        })
+        
+    }catch(error){
+        console.log(error)
+    }
+
     
 }
 

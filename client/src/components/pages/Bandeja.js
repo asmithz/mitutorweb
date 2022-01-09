@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Peticion from '../peticion/Peticion'
-import Chat from '../peticion_chat/ChatAsincrono'
 import DetectarTipoUsuarioID from '../controllers/DetectarTipoUsuario'
 import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID'
 import '../pages_css/Bandeja.css'
 import '../peticion/Peticion.css'
 import axios from 'axios'
-import ChatAsincrono from '../peticion_chat/ChatAsincrono'
+import ChatAsincrono from '../chatsincrono/ChatAsincrono'
 
 
 const api_peticion = axios.create({
@@ -128,7 +127,7 @@ const Bandeja = () => {
                 estado={chat.estado} 
                 id_receptor={chat.receptor_id} 
                 id_emisor={chat.emisor_id}
-                id_peticion={chat._id}
+                id_chat={chat._id}
                 tipo_usuario={tipo_usuario}/>
               })
             }
