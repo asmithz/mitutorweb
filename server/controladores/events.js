@@ -228,7 +228,6 @@ const actualizarHorario = async (req, res = response) => {
     const busqueda = { 'datos._id': id};
     try{
         const tutor = await Tutor.findOne(busqueda);
-        console.log(tutor)
         const nuevo_tutor = {
             _id: tutor.id,
             datos: tutor.datos,

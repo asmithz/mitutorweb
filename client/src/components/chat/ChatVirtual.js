@@ -7,7 +7,6 @@ const ChatVirtual = () => {
     var socket = io('http://localhost:2000/')
     socket.on("connection")
 
-    const mensaje = "";
     const enviarMensaje = (mensaje) => {
         socket.emit("mensaje", mensaje)
     }

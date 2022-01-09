@@ -49,9 +49,10 @@ server.listen(port, () => {
 
 //conexión con el socket connection
 io.on("connection", (socket) => {
-  //console.log(socket.id)
+  console.log(socket.id)
   // mis sockets
   socket.on("mensaje", (mensaje) => {
+    console.log(mensaje)
     socket.emit("mensaje", mensaje)
   })
 });

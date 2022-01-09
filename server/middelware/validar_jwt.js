@@ -6,7 +6,6 @@ const validarJWT = (req, res = response, next) => {
     const token = req.header('x-token');
 
     if( !token ){
-        console.log("ho hay token2")
         //res.redirect('http://localhost:3000/Login')
         return res.status(401).json({
             ok: false,
@@ -24,7 +23,6 @@ const validarJWT = (req, res = response, next) => {
         req.tipo = tipo;
 
     } catch (error){
-        console.log(error)
         //res.redirect('http://localhost:3000/Login')
         return res.status(401).json({
             ok: false,

@@ -8,7 +8,6 @@ const checkTipo = (req, res = response) => {
     const buff = Buffer.from(base64, "base64");
     const payloadinit = buff.toString('ascii');
     const usuario = JSON.parse(payloadinit);
-    console.log(usuario)
     res.status(201).json({
         usuario
     })

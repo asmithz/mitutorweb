@@ -24,6 +24,8 @@
 
 .mensajes{
     overflow: auto;
+    display: flex; 
+    flex-direction: column-reverse;
 }
 
 .chat-bottom{
@@ -66,7 +68,7 @@
 
 .mensajes p{
     max-width: 260px;
-    word-break:break-all; 
+    word-break:break-all;
 }
 
 .mensaje-otro-usuario{

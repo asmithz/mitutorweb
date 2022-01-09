@@ -97,7 +97,6 @@ const obtenerPeticion = async (req, res = response) => {
     }catch(error){
         console.log(error)
     }
-    console.log(peticiones)
     res.json({
         peticiones
     })
@@ -158,7 +157,6 @@ const iniciarChat = async (req, res = response) => {
         nuevo_chat.markModified('receptor_id')
         nuevo_chat.markModified('cant_mensajes')
         await nuevo_chat.save()
-        console.log(peticion_id)
         await Peticion.findByIdAndDelete( peticion_id );
 
         return res.json({

@@ -70,7 +70,6 @@ const registrarTutor = async (req, res = response) => {
         tutor.markModified('datos.password');
         tutor.markModified('datos.calificacion');
 
-        console.log(tutor)
         await tutor.save();
         // generar jwt
         const token = await generarJWT(tutor.id, tutor.datos.tipo);
@@ -95,7 +94,6 @@ const loginUsuario = async(req, res = response) => {
 
     const { user, password } = req.body;
     let login = await Tutor.findOne({'datos.user': user});
-    console.log(login)
     try{
         // busca que exista el user en estudiantes
         let estudiante = await Estudiante.findOne({ user });
