@@ -7,19 +7,18 @@ const zoomMeet = async (req, res = response) => {
         const enlaceZoom = generarEnlace.enlace
         
         if(await Reunion.findByIdAndDelete(generarEnlace._id)){
-            res.json({
+            return res.json({
                 enlaceZoom
             })
         }
         else{
             console.log("algo ocurrio")
         }
-        return res.json({
-            enlaceZoom
-        })
 
     }catch(error){
-        console.log(error)
+        return res.status(400).json({
+            msg: "Algo ocurrio"
+        })
     }
 }
 

@@ -42,6 +42,7 @@ app.use('/api/peticion', require('./routes/peticionesCRUD'));
 app.use('/api/chat', require('./routes/chatCRUD'));
 app.use('/api/mensaje', require('./routes/mensajesCRUD'));
 app.use('/api/zoom', require('./routes/zoom'));
+app.use('/api/pago', require('./routes/pago'));
  
 server.listen(port, () => {
   // perform a database connection when server starts
@@ -55,6 +56,12 @@ io.on("connection", (socket) => {
   socket.on("mensaje", (chat, texto_mensaje, emisor_id) => {
     if(emisor_id === chat.emisor_id || emisor_id === chat.receptor_id){
       socket.emit("mensaje", texto_mensaje)
+    }
+  })
+  socket.on("enlace_pago", (chat, enlacePago, emisor_id) => {
+      if(emisor_id === chat.receptor_id){
+      console.log(enlacePago)
+      socket.emit("enlace_pago", enlacePago)
     }
   })
 });

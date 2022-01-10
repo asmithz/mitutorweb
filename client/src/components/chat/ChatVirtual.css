@@ -5,16 +5,17 @@
     background: #ffffff;
     box-shadow: 2px 2px 3px 3px #e9e9e9;
     width: 800px;
-    height: 780px;
+    height: 820px;
     padding-right: 50px;
     padding-left: 50px;
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
     border-radius: 5px;
     border-style: solid;
     border-width: 2px;
     border-color: #c0c0c0;
     margin: auto;
+    margin-bottom: 10px;
     grid-gap: 20px;
 }
 
@@ -25,6 +26,7 @@
 .mensajes{
     overflow: auto;
     flex-direction: column;
+
 }
 
 .chat-bottom{
@@ -33,9 +35,16 @@
     grid-gap: 20px;
 }
 
-.chat-input-mensaje{
+.chat-input-mensaje-tutor{
     display: grid;
     grid-template-columns: 500px auto auto;
+    background: #ffffff;
+    border-color: #c0c0c0;
+}
+
+.chat-input-mensaje-estudiante{
+    display: grid;
+    grid-template-columns: 500px  auto;
     background: #ffffff;
     border-color: #c0c0c0;
 }

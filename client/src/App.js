@@ -8,6 +8,7 @@ import SignUp from './components/pages/SignUp'
 import Bandeja from './components/pages/Bandeja'
 import Perfil  from './components/pages/Perfil';
 import ChatVirtual from './components/chat/ChatVirtual';
+import PagoEnLinea from './components/pago/PagoEnLinea';
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 					<Route path='/Login' exact component={Login}/>
 					<Route path='/SignUp' exact component={SignUp}/>
 					<Route path='/ChatVirtual/:id' exact component={ChatVirtual}/>
+					<Route path='/PagoEnLinea/:id' exact component={PagoEnLinea}/>
 						<div>
 							<Navbar />
 							<Route path='/Inicio' exact component={Inicio}/>
