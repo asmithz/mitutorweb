@@ -1,4 +1,4 @@
-import './App.css';
+import './MiTutorWeb.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Navbar from './components/navegation/Navbar'
 import Inicio from './components/pages/Inicio'
@@ -9,16 +9,18 @@ import Bandeja from './components/pages/Bandeja'
 import Perfil  from './components/pages/Perfil';
 import ChatVirtual from './components/chat/ChatVirtual';
 import PagoEnLinea from './components/pago/PagoEnLinea';
+import Calificacion from './components/calificacion/Calificacion';
 
-function App() {
+function MiTutorWeb() {
 	return (
-		<div className="App">
+		<div className="MiTutorWeb">
 			<Router>
 				<Switch>
 					<Route path='/Login' exact component={Login}/>
 					<Route path='/SignUp' exact component={SignUp}/>
 					<Route path='/ChatVirtual/:id' exact component={ChatVirtual}/>
 					<Route path='/PagoEnLinea/:id' exact component={PagoEnLinea}/>
+					<Route path='/Calificacion/:id' exact component={Calificacion}/>
 						<div>
 							<Navbar />
 							<Route path='/Inicio' exact component={Inicio}/>
@@ -36,4 +38,4 @@ function App() {
 	);
 }
 
-export default App;
+export default MiTutorWeb;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './PagoEnLinea.css';
 import axios from 'axios'
 
@@ -10,13 +10,14 @@ const api = axios.create({
 })
 
 const PagoEnLinea = () => {
-  const [creditCardNum, setCreditCardNum] = useState('');
-  const [cardHolder, setCardHolder] = useState('');
-  const [expireMonth, setExpireMonth] = useState('');
-  const [expireYear, setExpireYear] = useState('');
-  const [cardTypeUrl, setCardTypeUrl] = useState('https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_vrt_rev_92px_2x.png');
+  const [tarjetaNum, setTarjetaNum] = useState('');
+  const [titularTarjeta, setTitular] = useState('');
+  const [mesExpiracion, setExpiracionMes] = useState('');
+  const [anioExpiracion, setExpiracionAnio] = useState('');
+  const tarjetaLogo = 'https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_vrt_rev_92px_2x.png'
   const pagoID = useLocation().pathname.split("/")[2]
   const [pagoDatos, setPagoDatos] = useState({})
+  const [validarPago, setvalidarPago] = useState(false)
 
   useEffect(() => {
     const mostrarPago = async () => {
@@ -30,7 +31,6 @@ const PagoEnLinea = () => {
         })
         if(buscar.data){
           setPagoDatos(buscar.data.buscarPago)
-          console.log(buscar.data.buscarPago.monto)
         }
       }catch(error){
         console.log(error)
@@ -49,31 +49,35 @@ const PagoEnLinea = () => {
         }
       })
       //enviar a la calificación
-      if(registrar.data){
-        alert()
+      if(registrar.data.pagoRegistrado){
+        alert("Pago realizado con éxito")
+        window.location.replace("/Calificacion/"+pagoDatos.tutor_id)
       }
     }catch(error){
       console.log(error)
     }
   }
 
-  const handleNum = (e) => {
-    setCreditCardNum(e.target.value);
+  const modificarTarjeta = (e) => {
+    setTarjetaNum(e.target.value);
   }
   
-  const handleCardHolder = (e) => {
-    setCardHolder(e.target.value);
+  const modificarTitular = (e) => {
+    setTitular(e.target.value);
   }
 
-  const handleExpMonth = (e) => {
-    setExpireMonth(e.target.value);
+  const modificarMes = (e) => {
+    setExpiracionMes(e.target.value);
   }
 
-  const handleExpYear = (e) => {
-    setExpireYear(e.target.value);
+  const modificarAnio = (e) => {
+    setExpiracionAnio(e.target.value);
   }
 
   return (
+    <>
+    { 
+      !validarPago &&
       <div className="formmm">
        <div className="container">
         <form id="form">
@@ -81,38 +85,36 @@ const PagoEnLinea = () => {
                 <div className="header">
                     <div className="sticker"></div>
                     <div>
-                      <img className="logo" src={cardTypeUrl} alt="Card logo"/>
+                      <img className="logo" src={tarjetaLogo} alt="Card logo"/>
                     </div>
                 </div>
                 <div className="body">
-                    <h2 id="creditCardNumber">{creditCardNum}</h2>
+                    <h2 id="creditCardNumber">{tarjetaNum}</h2>
                 </div>
                 <div className="footer">
                     <div>
-                        <h3>{cardHolder}</h3>
+                        <h3>{titularTarjeta}</h3>
                     </div>
                     <div>
-                        <h3>{expireMonth} / {expireYear}</h3>
+                        <h3>{mesExpiracion} / {anioExpiracion}</h3>
                     </div>
                 </div>
             </div>
 
             <div className="input-container mt">
                 <h4>Titular de la tarjeta</h4>
-                <input onChange={handleCardHolder} type="text" placeholder="Nombre completo" required/>
+                <input onChange={modificarTitular} type="text" placeholder="Nombre completo" required/>
             </div>
 
             <div className="input-container ">
                 <h4>Ingrese su tarjeta paga efectuar el pago de su tutoría</h4>
-                <input onChange={handleNum}
+                <input onChange={modificarTarjeta}
                   placeholder="Número de la tarjeta"/>
             </div>
-
-
             <div className="input-grp">
                 <div className="input-container">
                     <h4>Fecha de expiración</h4>
-                    <select value={expireYear} onChange={handleExpYear}>
+                    <select value={anioExpiracion} onChange={modificarAnio}>
                       <option value="Enero">Enero</option>
                       <option value="Febrero">Febrero</option>
                       <option value="Marzo">Marzo</option>
@@ -129,7 +131,7 @@ const PagoEnLinea = () => {
                 </div>
                 <div className="input-container">
                 <h4>Mes</h4>
-                <select value={expireMonth} onChange={handleExpMonth}>
+                <select value={mesExpiracion} onChange={modificarMes}>
                       <option value="2021">2021</option>
                       <option value="2022">2022</option>
                       <option value="2023">2023</option>
@@ -148,12 +150,13 @@ const PagoEnLinea = () => {
             </div>
             <div className="input-grp2">
                 <h2>Monto total: {pagoDatos.monto} </h2>
-                <h3>Tutor: </h3>
             </div>
             <button onClick={registrarPago}>Pagar</button>
         </form>
     </div>
     </div>
+    }
+    </>
   );
 }
 

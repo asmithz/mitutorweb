@@ -25,6 +25,8 @@ const Bandeja = () => {
   const tipo_usuario = DetectarTipoUsuarioID()
   const [peticionesFetch, setpeticionesFetch] = useState([])
   const [endFetch, setendFetch] = useState(true)
+  const [chatsFetch, setchatsFetch] = useState([])
+  const [endChatFetch, setendChatFetch] = useState(true)
 
   useEffect(()=>{
     //checkear cuando se obtenga el id del usuario
@@ -62,9 +64,6 @@ const Bandeja = () => {
       return false
     }
   }
-
-  const [chatsFetch, setchatsFetch] = useState([])
-  const [endChatFetch, setendChatFetch] = useState(true)
 
   useEffect(()=>{
     //checkear cuando se obtenga el id del usuario

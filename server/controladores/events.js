@@ -296,6 +296,58 @@ const filtrarTutores = async(req, res = response) => {
     })
 }
 
+const actualizarCalificacion = async(req, res = response) => {
+    const tutorID = req.params.id;
+    const {calificacion} = req.body;
+    const busqueda = { 'datos._id': tutorID};
+    try{
+        const tutor = await Tutor.findOne(busqueda);
+
+        if(!tutor){
+            return res.status(404).json({
+                ok: false,
+                msg: 'no existe ese id'
+            });
+        }
+        const nueva_calificacion = ((parseFloat(tutor.datos.calificacion) + parseFloat(calificacion)*0.8)/2).toFixed(2)
+        tutor.datos.calificacion = nueva_calificacion
+        tutor.markModified('calificacion')
+        tutor.save()
+        return res.json({
+            tutor
+        })
+
+    }catch(error){
+        console.log(error)
+    }
+
+}
+
+const obtenerCalificacion = async(req, res = response) => {
+    const tutorID = req.params.id;
+    const busqueda = { 'datos._id': tutorID };
+    try{
+        const tutor = await Tutor.findOne(busqueda);
+
+        if(!tutor){
+            return res.status(404).json({
+                ok: false,
+                msg: 'no existe ese id'
+            });
+        }
+        const nombre_tutor = tutor.datos.nombre+" "+tutor.datos.apellido
+        const calificacion_tutor = tutor.datos.calificacion
+        return res.json({
+            nombre_tutor,
+            calificacion_tutor
+        })
+
+    }catch(error){
+        console.log(error)
+    }
+
+}
+
 module.exports = {
     obtenerEstudiante,
     actualizarEstudiante,
@@ -305,5 +357,7 @@ module.exports = {
     actualizarHorario,
     borrarTutor,
     obtenerTutores,
-    filtrarTutores
+    filtrarTutores,
+    actualizarCalificacion,
+    obtenerCalificacion
 }

@@ -161,14 +161,14 @@ const PerfilTutor = (props) => {
 
     const mi_token = localStorage.getItem('x-token')
     const tutorID = ObtenerUsuarioID();
-
+    const [borrarTutor, setBorrar] = useState(false);
     const [editarDatos, seteditarDatos] = useState(false);
+    const [tutor, setTutor] = useState([])
+    const [dataTutor, setdataTutor] = useState(true)
+
     const updateEditar = () => {
         seteditarDatos(true)
     }
-
-    const [tutor, setTutor] = useState([])
-    const [dataTutor, setdataTutor] = useState(true)
 
     useEffect(() => {
         const datosTutor = async () => {
@@ -189,7 +189,6 @@ const PerfilTutor = (props) => {
         datosTutor();
     }, [tutor])
     
-    const [borrarTutor, setBorrar] = useState(false);
     const updateBorrarTutor = () => {
         let confirmar = window.confirm("Estimado/a "+tutor[0].datos.nombre+" "+tutor[0].datos.apellido+", desea eleminar su cuenta?")
         if(confirmar){
@@ -199,7 +198,7 @@ const PerfilTutor = (props) => {
 
     useEffect(() => {
         if(borrarTutor){
-            const borrar = async () => {
+            const borrarCuenta = async () => {
                 try{
                     await api.delete('/borrarTutor/'+tutorID, {
                         headers: {
@@ -214,7 +213,7 @@ const PerfilTutor = (props) => {
                     console.log(error)
                 }
             }
-            borrar();
+            borrarCuenta();
         }
     }, [borrarTutor])
 

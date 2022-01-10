@@ -181,6 +181,7 @@ const Tutores = (props) => {
 const Buscar = () => {
   //activar filtro
   const[filtro, setFiltro] = useState(false);
+  const[tutoresFetch, setTutoresFetch] = useState([]);
   const updateFiltro = (values) => {
     setFiltro(!filtro)
     
@@ -243,7 +244,6 @@ const Buscar = () => {
     return true
   }
   
-  const[tutoresFetch, setTutoresFetch] = useState([]);
   useEffect(() => {
     const obtenerTutores = async () => {
       try{

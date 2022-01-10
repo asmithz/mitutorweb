@@ -42,7 +42,6 @@ const api = axios.create({
 });
 
 const registrarHorario = async (values) => {
-    console.log(values)
     try{
         await api.post('/registrarTutor', values);
         alert("Se ha registrado! ")

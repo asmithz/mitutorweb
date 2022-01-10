@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import MiTutorWeb from './MiTutorWeb';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MiTutorWeb />
   </React.StrictMode>,
   document.getElementById('root')
 );

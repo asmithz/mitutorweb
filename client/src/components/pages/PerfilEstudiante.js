@@ -138,12 +138,14 @@ const MostrarDatos = (props) => {
 const PerfilEstudiante = (props) => {
 
     const [editarDatos, seteditarDatos] = useState(false);
+    const [borrarEstudiante, setBorrar] = useState(false);
+    const estudianteID = ObtenerUsuarioID();
+    const [estudiante, setEstudiante] = useState([])
+    const [dataEstudiante, setdataEstudiante] = useState(true)
+
     const updateEditar = () => {
         seteditarDatos(true)
     }
-
-    const [estudiante, setEstudiante] = useState([])
-    const [dataEstudiante, setdataEstudiante] = useState(true)
 
     useEffect(() => {
         const datosEstudiante = async () => {
@@ -162,20 +164,17 @@ const PerfilEstudiante = (props) => {
 
         }
         datosEstudiante();
-        console.log(estudiante)
     }, [estudiante])
     
-    const [borrarEstudiante, setBorrar] = useState(false);
     const updateBorrarEstudiante = () => {
         setBorrar(true);
     }
 
-    const estudianteID = ObtenerUsuarioID();
     const mi_token = localStorage.getItem('x-token');
 
     useEffect(() => {
         if(borrarEstudiante){
-            const borrar = async () => {
+            const borrarCuenta = async () => {
                 try{
                     const response = await api.delete('/borrarEstudiante'+estudianteID, props.dato, {
                         headers: {
@@ -190,7 +189,7 @@ const PerfilEstudiante = (props) => {
                     console.log(error)
                 }
             }
-            borrar();
+            borrarCuenta();
         }
     }, [borrarEstudiante])
     return(
