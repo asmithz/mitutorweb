@@ -10,9 +10,8 @@ const api = axios.create({
 })
 
 const ChatAsincrono = (props) => {
-    const mi_token = localStorage.getItem('x-token')
-
     const eliminarChat = async () => {
+        const mi_token = localStorage.getItem('x-token')
         if(window.confirm("Usted esta por eliminar este chat, está seguro?") === true){
             try{
                 const response = await api.delete("/eliminarChat/"+props.id_chat, {
@@ -50,15 +49,7 @@ const ChatAsincrono = (props) => {
                 </div>
                 <div className="elemento-chat">
                     <div className="botones-chat">
-                        <Link to={{pathname: {abrirChat},
-                         state: {
-                            titulo: props.titulo,
-                            estado: props.estado,
-                            id_emisor: props.id_emisor,
-                            id_chat: props.id_chat,
-                            tipo_usuario: props.tipo_usuario
-                        }
-                        }}><BotonFormulario className="boton-aceptar" name="boton" value="Abrir"/></Link>
+                        <Link to={abrirChat}><BotonFormulario className="boton-aceptar" name="boton" value="Abrir"/></Link>
                         <BotonFormulario className="boton-rechazar" func={eliminarChat} name="boton" value="Eliminar"/>
                     </div>
                 </div>

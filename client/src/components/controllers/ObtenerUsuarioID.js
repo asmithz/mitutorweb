@@ -27,7 +27,9 @@ const ObtenerUsuarioID = () => {
         }
         obtenerID();
     }, [])
-    return usuarioID
+    if(usuarioID){
+        return usuarioID
+    }
 }
 
 export default ObtenerUsuarioID;

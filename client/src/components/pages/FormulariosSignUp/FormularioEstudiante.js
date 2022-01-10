@@ -12,7 +12,6 @@ const validaciones = () => {
 }
 
 const crearEstudiante = async (values) => {
-    console.log(values)
     try{
         await api.post('/registrarEstudiante', values);
         alert("Se ha registrado! ")

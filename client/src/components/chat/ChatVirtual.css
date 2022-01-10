@@ -24,8 +24,7 @@
 
 .mensajes{
     overflow: auto;
-    display: flex; 
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .chat-bottom{
@@ -41,7 +40,7 @@
     border-color: #c0c0c0;
 }
 
-.mensaje-usuario{
+.mensaje-emisor{
     display: grid;
     color:#ffffff;
     grid-template-rows: auto;
@@ -61,7 +60,7 @@
     border-color: #2f69c0;
     text-align: left;
     grid-gap: 20px;
-    margin-right: 0px;
+    margin-right: 10px;
     margin-bottom: 5px;
     margin-left: auto;
 }
@@ -71,7 +70,7 @@
     word-break:break-all;
 }
 
-.mensaje-otro-usuario{
+.mensaje-receptor{
     display: grid;
     color:#ffffff;
     grid-template-rows: auto;

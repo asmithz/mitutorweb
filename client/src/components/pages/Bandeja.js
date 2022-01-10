@@ -21,7 +21,6 @@ const api_chat = axios.create({
 })
 
 const Bandeja = () => {
-  const mi_token = localStorage.getItem('x-token')
   const usuarioID = ObtenerUsuarioID()
   const tipo_usuario = DetectarTipoUsuarioID()
   const [peticionesFetch, setpeticionesFetch] = useState([])
@@ -31,6 +30,7 @@ const Bandeja = () => {
     //checkear cuando se obtenga el id del usuario
     if(usuarioID && tipo_usuario){
     const obtenerPeticiones = async () => {
+      const mi_token = localStorage.getItem('x-token')
       try{
         const response = await api_peticion.get("/obtenerPeticion/"+usuarioID, {
                     headers: {
@@ -70,6 +70,7 @@ const Bandeja = () => {
     //checkear cuando se obtenga el id del usuario
     if(usuarioID && tipo_usuario){
     const obtenerChats = async () => {
+      const mi_token = localStorage.getItem('x-token')
       try{
         const response = await api_chat.get("/obtenerChat/"+usuarioID, {
                     headers: {

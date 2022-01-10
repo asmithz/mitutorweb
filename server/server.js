@@ -41,6 +41,7 @@ app.use('/api/checkToken', require('./routes/checkUsuario'));
 app.use('/api/peticion', require('./routes/peticionesCRUD'));
 app.use('/api/chat', require('./routes/chatCRUD'));
 app.use('/api/mensaje', require('./routes/mensajesCRUD'));
+app.use('/api/zoom', require('./routes/zoom'));
  
 server.listen(port, () => {
   // perform a database connection when server starts
@@ -51,8 +52,9 @@ server.listen(port, () => {
 io.on("connection", (socket) => {
   console.log(socket.id)
   // mis sockets
-  socket.on("mensaje", (mensaje) => {
-    console.log(mensaje)
-    socket.emit("mensaje", mensaje)
+  socket.on("mensaje", (chat, texto_mensaje, emisor_id) => {
+    if(emisor_id === chat.emisor_id || emisor_id === chat.receptor_id){
+      socket.emit("mensaje", texto_mensaje)
+    }
   })
 });

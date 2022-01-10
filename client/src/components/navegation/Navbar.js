@@ -23,7 +23,7 @@ const Navbar = () => {
     <div>
      <nav className="navbar navbar-expand-lg" style={styles.navbar}>
 		<div className="container-fluid">
-			<a className="navbar-brand" href="/Inicio" style={styles.navtext}>MiTutorWeb :)</a>
+			<a className="navbar-brand" href="/Inicio" style={styles.navtext}>MiTutorWeb</a>
 			<div> 
 			<ul className="navbar-nav">
 				<li className="nav-item">

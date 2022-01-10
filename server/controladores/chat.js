@@ -2,13 +2,8 @@ const { response } = require('express');
 const  ChatVirtual = require("../models/chatvirtual")
 const  Mensaje = require("../models/mensaje")
 
-const ingresarChat = async () => {
-
-}
-
 const eliminarChat = async (req, res = response) => {
     const id_chat = req.params.id
-    console.log(id_chat)
 
     try{
         const chat = await ChatVirtual.findById(id_chat)
@@ -45,7 +40,7 @@ const obtenerChat = async (req, res = response) => {
         if(chats.length === 0){
             return res.status(400).json({
                 ok: false,
-                msg: "no se encuentran peticiones"
+                msg: "no se encuentran chats"
             })
         }
     }
@@ -54,9 +49,23 @@ const obtenerChat = async (req, res = response) => {
     })
 }
 
+const verificarChat = async (req, res = response) => {
+    const chatID = req.params.id
+    const chat = await ChatVirtual.findById(chatID)
+    if(!chat){
+        return res.status(400).json({
+            ok: false,
+            msg: "no existe tal chat"
+        })
+    }
+    res.json({
+        chat
+    })
+}
+
 module.exports = {
-    ingresarChat,
     eliminarChat,
     agregarChat,
-    obtenerChat
+    obtenerChat,
+    verificarChat
 }
