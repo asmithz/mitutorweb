@@ -24,6 +24,7 @@
 }
 
 .mensajes{
+    display: flex;
     overflow: auto;
     flex-direction: column;
 }

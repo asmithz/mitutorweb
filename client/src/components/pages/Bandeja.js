@@ -119,6 +119,7 @@ const Bandeja = () => {
               })
             }
         </div>
+        <hr></hr>
         <h1>Chats</h1>
         <div className="modulos">
             { mostrarChats && 

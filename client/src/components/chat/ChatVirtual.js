@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import DetectarTipoUsuario from '../controllers/DetectarTipoUsuario';
+import ScrollableFeed from 'react-scrollable-feed'
 import APIZoom from './APIZoom'
 
 const socket = io('http://localhost:2000/')
@@ -138,6 +139,7 @@ const ChatVirtual = (props) => {
             } 
             <div className="chat-tarjeta">
                 <div className="mensajes">
+                    <ScrollableFeed>
                     {
                        mensajes.map((mensajeEnviado, i) => {
                            if(emisorID === mensajeEnviado.emisor_id){
@@ -153,6 +155,7 @@ const ChatVirtual = (props) => {
                            }
                        }) 
                     }
+                    </ScrollableFeed>
                 </div>
                 <div className="chat-bottom">
                     {
