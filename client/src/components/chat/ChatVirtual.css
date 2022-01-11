@@ -26,7 +26,6 @@
 .mensajes{
     overflow: auto;
     flex-direction: column;
-
 }
 
 .chat-bottom{
@@ -76,7 +75,6 @@
 
 .mensajes p{
     max-width: 260px;
-    word-break:break-all;
 }
 
 .mensaje-receptor{

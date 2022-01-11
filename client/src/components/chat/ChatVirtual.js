@@ -166,7 +166,7 @@ const ChatVirtual = (props) => {
                     <Formik initialValues={{
                         mensaje: ''
                     }}
-                    onSubmit={values => enviarMensaje(values)}>
+                    onSubmit={(values, {resetForm}) => {enviarMensaje(values); resetForm({values: ""})}}>
                         <Form>
                             {
                                 emisorTIPO === "tutor" &&
@@ -190,7 +190,7 @@ const ChatVirtual = (props) => {
                                         <ErrorMessage name="mensaje"/>
                                     </div>
                                     <div>
-                                        <BotonFormulario className="btn btn-primary" nombre="boton" value="Enviar mensaje"/>
+                                        <BotonFormulario type="reset" className="btn btn-primary" nombre="boton" value="Enviar mensaje"/>
                                     </div>
                                 </div>
                             }

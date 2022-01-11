@@ -80,7 +80,7 @@ const PagoEnLinea = () => {
       !validarPago &&
       <div className="formmm">
        <div className="container">
-        <form id="form">
+        <div id="form">
             <div id="card">
                 <div className="header">
                     <div className="sticker"></div>
@@ -152,7 +152,7 @@ const PagoEnLinea = () => {
                 <h2>Monto total: {pagoDatos.monto} </h2>
             </div>
             <button onClick={registrarPago}>Pagar</button>
-        </form>
+        </div>
     </div>
     </div>
     }
