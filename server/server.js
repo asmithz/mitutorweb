@@ -36,13 +36,13 @@ app.use(express.json());
 //directorio publico middlewares
 app.use( express.static('../src') );
 app.use('/api/log', require('./routes/auth'));
-app.use('/api/events', require('./routes/eventosCRUD'));
+app.use('/api/usuariosControlador', require('./routes/eventosCRUD'));
 app.use('/api/checkToken', require('./routes/checkUsuario'));
-app.use('/api/peticion', require('./routes/peticionesCRUD'));
-app.use('/api/chat', require('./routes/chatCRUD'));
-app.use('/api/mensaje', require('./routes/mensajesCRUD'));
-app.use('/api/zoom', require('./routes/zoom'));
-app.use('/api/pago', require('./routes/pago'));
+app.use('/api/peticionControlador', require('./routes/peticionesCRUD'));
+app.use('/api/chatControlador', require('./routes/chatCRUD'));
+app.use('/api/mensajeControlador', require('./routes/mensajesCRUD'));
+app.use('/api/zoomControlador', require('./routes/zoom'));
+app.use('/api/pagoControlador', require('./routes/pago'));
  
 server.listen(port, () => {
   // perform a database connection when server starts

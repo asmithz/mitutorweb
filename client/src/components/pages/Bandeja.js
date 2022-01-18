@@ -10,13 +10,13 @@ import ChatAsincrono from '../chatsincrono/ChatAsincrono'
 const api_peticion = axios.create({
     withCredentials: true, 
     credentials: 'include',
-    baseURL: `http://localhost:2000/api/peticion`
+    baseURL: `http://localhost:2000/api/peticionControlador`
 })
 
 const api_chat = axios.create({
     withCredentials: true, 
     credentials: 'include',
-    baseURL: `http://localhost:2000/api/chat`
+    baseURL: `http://localhost:2000/api/chatControlador`
 })
 
 const Bandeja = () => {

@@ -1,8 +1,8 @@
 const express= require('express');
 const router = express.Router();
 
-const { enviarMensaje } = require('../controladores/mensajes')
-const { obtenerMensajes } = require('../controladores/mensajes')
+const { enviarMensaje } = require('../controladores/mensajeControlador')
+const { obtenerMensajes } = require('../controladores/mensajeControlador')
 
 router.post('/enviarMensaje/:id', enviarMensaje);
 router.get('/obtenerMensajes/:id', obtenerMensajes);

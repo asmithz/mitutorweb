@@ -1,11 +1,11 @@
 const express= require('express');
 const router = express.Router();
 
-const { ingresarChat } = require('../controladores/chat')
-const { eliminarChat } = require('../controladores/chat')
-const { agregarChat } = require('../controladores/chat')
-const { obtenerChat } = require('../controladores/chat')
-const { verificarChat } = require('../controladores/chat')
+const { ingresarChat } = require('../controladores/chatControlador')
+const { eliminarChat } = require('../controladores/chatControlador')
+const { agregarChat } = require('../controladores/chatControlador')
+const { obtenerChat } = require('../controladores/chatControlador')
+const { verificarChat } = require('../controladores/chatControlador')
 
 router.post('/agregarChat/:id', agregarChat);
 router.get('/obtenerChat/:id', obtenerChat);

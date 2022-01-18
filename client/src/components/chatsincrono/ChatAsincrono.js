@@ -6,7 +6,7 @@ import axios from 'axios'
 const api = axios.create({
     withCredentials: true, 
     credentials: 'include',
-    baseURL: `http://localhost:2000/api/chat`
+    baseURL: `http://localhost:2000/api/chatControlador`
 })
 
 const ChatAsincrono = (props) => {

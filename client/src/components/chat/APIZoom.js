@@ -4,7 +4,7 @@ import axios from 'axios'
 const ZoomAPI = axios.create({
   withCredentials: true, 
   credentials: 'include',
-  baseURL: `http://localhost:2000/api/zoom`
+  baseURL: `http://localhost:2000/api/zoomControlador`
 })
 
 const APIZoom = () => {

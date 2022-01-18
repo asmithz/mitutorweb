@@ -1,12 +1,12 @@
 const express= require('express');
 const router = express.Router();
 
-const { agregarPeticion } = require('../controladores/peticiones')
-const { borrarPeticion } = require('../controladores/peticiones')
-const { obtenerPeticion } = require('../controladores/peticiones')
-const { actualizarPeticion } = require('../controladores/peticiones')
-const { aceptarPeticion } = require('../controladores/peticiones')
-const { iniciarChat } = require('../controladores/peticiones')
+const { agregarPeticion } = require('../controladores/peticionControlador')
+const { borrarPeticion } = require('../controladores/peticionControlador')
+const { obtenerPeticion } = require('../controladores/peticionControlador')
+const { actualizarPeticion } = require('../controladores/peticionControlador')
+const { aceptarPeticion } = require('../controladores/peticionControlador')
+const { iniciarChat } = require('../controladores/peticionControlador')
 
 router.post('/agregarPeticion', agregarPeticion);
 router.get('/obtenerPeticion/:id', obtenerPeticion);

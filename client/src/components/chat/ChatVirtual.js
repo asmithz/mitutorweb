@@ -17,19 +17,19 @@ socket.on("connection")
 const api = axios.create({
   withCredentials: true, 
   credentials: 'include',
-  baseURL: `http://localhost:2000/api/mensaje`
+  baseURL: `http://localhost:2000/api/mensajeControlador`
 })
 
 const api_chat = axios.create({
   withCredentials: true, 
   credentials: 'include',
-  baseURL: `http://localhost:2000/api/chat`
+  baseURL: `http://localhost:2000/api/chatControlador`
 })
 
 const api_pago = axios.create({
   withCredentials: true, 
   credentials: 'include',
-  baseURL: `http://localhost:2000/api/pago`
+  baseURL: `http://localhost:2000/api/pagoControlador`
 })
 
 const ChatVirtual = (props) => {

@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const { validarJWT } = require('../middelware/validar_jwt');
-const { obtenerTutor, actualizarTutor, actualizarHorario, borrarTutor, actualizarCalificacion, obtenerCalificacion } = require('../controladores/events')
-const { obtenerEstudiante, actualizarEstudiante, borrarEstudiante } = require('../controladores/events')
-const { obtenerTutores, filtrarTutores } = require('../controladores/events')
+const { obtenerTutor, actualizarTutor, actualizarHorario, borrarTutor, actualizarCalificacion, obtenerCalificacion } = require('../controladores/usuariosControlador')
+const { obtenerEstudiante, actualizarEstudiante, borrarEstudiante } = require('../controladores/usuariosControlador')
+const { obtenerTutores, filtrarTutores } = require('../controladores/usuariosControlador')
 
 const router = Router();
 

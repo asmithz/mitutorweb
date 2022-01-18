@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const api_peticion = axios.create({
     withCredentials: true, 
     credentials: 'include',
-    baseURL: `http://localhost:2000/api/peticion`
+    baseURL: `http://localhost:2000/api/peticionControlador`
 })
 
 const Peticion = (props) => {

@@ -9,7 +9,7 @@ import axios from 'axios'
 const api = axios.create({
   withCredentials: true, 
   credentials: 'include',
-  baseURL: `http://localhost:2000/api/events`
+  baseURL: `http://localhost:2000/api/usuariosControlador`
 })
 
 const EditarDatos = (props) => {

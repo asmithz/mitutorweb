@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom'
 import missing_picture from '../../img/missing_picture.png';
 
 const api = axios.create({
-    baseURL: `http://localhost:2000/api/events`
+    baseURL: `http://localhost:2000/api/usuariosControlador`
 })
 
 const Calificacion = () =>{
@@ -30,9 +30,9 @@ const Calificacion = () =>{
     })
 
     const calificar = async (calificacion) => {
-        const cal = {"puntaje": calificacion}
+        const puntaje = {"puntaje": calificacion}
             try{
-                const response = await api.put("/actualizarCalificacion/"+tutorID, cal)
+                const response = await api.put("/actualizarCalificacion/"+tutorID, puntaje)
                 if(response){
                     alert("Gracias por calificar a su tutor!")
                     window.location.replace('/Bandeja')

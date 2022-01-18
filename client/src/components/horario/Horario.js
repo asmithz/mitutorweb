@@ -53,7 +53,7 @@ const registrarHorario = async (values) => {
 }
 
 const apiHorario = axios.create({
-    baseURL: `http://localhost:2000/api/events`
+    baseURL: `http://localhost:2000/api/usuariosControlador`
 })
 
 const Bloques = (props) => {

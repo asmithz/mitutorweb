@@ -11,11 +11,11 @@ import ModalBotonBuscar from '../botones/ModalBotonBuscar';
 import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 
 const api = axios.create({
-    baseURL: `http://localhost:2000/api/events`
+    baseURL: `http://localhost:2000/api/usuariosControlador`
 })
 
 const api_peticion = axios.create({
-    baseURL: `http://localhost:2000/api/peticion`
+    baseURL: `http://localhost:2000/api/peticionControlador`
 })
 
 /*Componente filtro de asignaturas(los checkbox)*/
