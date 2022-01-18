@@ -2,8 +2,8 @@ const { response } = require('express');
 const Estudiante = require('../models/estudiante');
 const Tutor = require("../models/tutor");
 const Peticion = require("../models/peticion");
-const  ChatVirtual = require("../models/chatvirtual")
-const  Mensaje = require("../models/mensaje")
+const ChatVirtual = require("../models/chatvirtual")
+const Mensaje = require("../models/mensaje")
 
 const agregarPeticion = async (req, res = response) => {
     const { estudiante_id, tutor_id } = req.body

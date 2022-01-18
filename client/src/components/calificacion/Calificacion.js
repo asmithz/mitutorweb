@@ -30,9 +30,9 @@ const Calificacion = () =>{
     })
 
     const calificar = async (calificacion) => {
-        if(calificacion !== "" ){
+        const cal = {"puntaje": calificacion}
             try{
-                const response = await api.put("/actualizarCalificacion/"+tutorID, calificacion)
+                const response = await api.put("/actualizarCalificacion/"+tutorID, cal)
                 if(response){
                     alert("Gracias por calificar a su tutor!")
                     window.location.replace('/Bandeja')
@@ -40,10 +40,7 @@ const Calificacion = () =>{
             }catch(error){
                 console.log(error)
             }
-        }
-        else{
-            alert("No ingresó ninguna puntuación.")
-        }
+        
     }
 
     return(

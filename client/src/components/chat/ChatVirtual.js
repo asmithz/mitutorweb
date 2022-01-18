@@ -67,7 +67,7 @@ const ChatVirtual = (props) => {
             }
         }catch(error){
             alert("El chat ya no existe, fue borrado.")
-            window.location.replace('/Inicio');
+            window.location.replace('/Bandeja');
             console.log(error)
         }
     }

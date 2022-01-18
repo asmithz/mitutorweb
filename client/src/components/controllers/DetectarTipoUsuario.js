@@ -14,7 +14,6 @@ const DetectarTipoUsuario = () => {
       const obtenerUsuario = async () => {
           try{
               const mi_token = localStorage.getItem('x-token')
-              //console.log(mi_token)
               const tipo_usuario = await api.get('/checkUser',{
                   headers: {
                   'Content-type': 'application/json',

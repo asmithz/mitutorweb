@@ -11,12 +11,10 @@ const api = axios.create({
   baseURL: `http://localhost:2000/api/log`
 })
 
-
 const validaciones = () => {
 }
 
 const Login = () => {
-
   const loginUsuario = async (values) => {
     const { user, password } = values
     try{
@@ -29,11 +27,11 @@ const Login = () => {
       localStorage.setItem('x-token', usuario.data.token)
       if(usuario.data.hasOwnProperty("tutor")){
           alert("Bienvenido, " + usuario.data.tutor.datos.nombre + " " + usuario.data.tutor.datos.apellido)
-          window.location.href = '/Inicio';
+          window.location.href = '/Buscar';
       }
       else if(usuario.data.hasOwnProperty("estudiante")){
           alert("Bienvenido, " + usuario.data.estudiante.nombre + " " + usuario.data.estudiante.apellido)
-          window.location.href = '/Inicio';
+          window.location.href = '/Buscar';
       }
     }catch(error){
       console.log(error)

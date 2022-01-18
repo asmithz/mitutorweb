@@ -7,7 +7,6 @@ import '../peticion/Peticion.css'
 import axios from 'axios'
 import ChatAsincrono from '../chatsincrono/ChatAsincrono'
 
-
 const api_peticion = axios.create({
     withCredentials: true, 
     credentials: 'include',

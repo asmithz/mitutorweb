@@ -12,23 +12,50 @@ import PagoEnLinea from './components/pago/PagoEnLinea';
 import Calificacion from './components/calificacion/Calificacion';
 
 function MiTutorWeb() {
+	const routeLogin = () => {
+		return <Login />
+	}
+	const routeSignUp = () => {
+		return <SignUp />
+	}
+	const routeChatVirtual = () => {
+		return <ChatVirtual />
+	}
+	const routePagoEnLinea = () => {
+		return <PagoEnLinea />
+	}
+	const routeCalificacion = () =>{
+		return <Calificacion />
+	}
+	const routeInicio = () => {
+		return <Inicio />
+	}
+	const routeBuscar = () => {
+		return <Buscar />
+	}
+	const routeBandeja = () => {
+		return <Bandeja />
+	}
+	const routePerfil = () =>{
+		return <Perfil />
+	}
 	return (
 		<div className="MiTutorWeb">
 			<Router>
 				<Switch>
-					<Route path='/Login' exact component={Login}/>
-					<Route path='/SignUp' exact component={SignUp}/>
-					<Route path='/ChatVirtual/:id' exact component={ChatVirtual}/>
-					<Route path='/PagoEnLinea/:id' exact component={PagoEnLinea}/>
-					<Route path='/Calificacion/:id' exact component={Calificacion}/>
+					<Route path='/Login' exact component={routeLogin}/>
+					<Route path='/SignUp' exact component={routeSignUp}/>
+					<Route path='/ChatVirtual/:id' exact component={routeChatVirtual}/>
+					<Route path='/PagoEnLinea/:id' exact component={routePagoEnLinea}/>
+					<Route path='/Calificacion/:id' exact component={routeCalificacion}/>
 						<div>
 							<Navbar />
-							<Route path='/Inicio' exact component={Inicio}/>
-							<Route path='/Buscar' exact component={Buscar}/>
+							<Route path='/Inicio' exact component={routeInicio}/>
+							<Route path='/Buscar' exact component={routeBuscar}/>
 						{localStorage.getItem('x-token') && 
 							<>
-							<Route path='/Bandeja' exact component={Bandeja}/>
-							<Route path='/Perfil' exact component={Perfil}/>
+							<Route path='/Bandeja' exact component={routeBandeja}/>
+							<Route path='/Perfil' exact component={routePerfil}/>
 							</>
 						}
 					</div>

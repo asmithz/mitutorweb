@@ -148,7 +148,7 @@ const TarjetaTutor = (props) => {
         <h5>{props.datos_tutor.nombre} {props.datos_tutor.apellido}</h5>
       </div>
       <div className="tarjeta-tutor-texto">
-        <h6>Calificación: {props.datos_tutor.calificacion}</h6>
+        <h6>Calificación: {props.datos_tutor.puntaje}</h6>
       </div>
       <div className="tarjeta-tutor-botones">
         <ModalBotonBuscar className="boton-agregar" value="Horario" 
@@ -177,21 +177,18 @@ const Tutores = (props) => {
   );
 }
 
-/*Componente clase Buscar*/
 const Buscar = () => {
   //activar filtro
   const[filtro, setFiltro] = useState(false);
   const[tutoresFetch, setTutoresFetch] = useState([]);
   const updateFiltro = (values) => {
     setFiltro(!filtro)
-    
-    
     //logica filtrar
     setTutoresFetch(tutoresFetch.filter((tutor) => compararDato(tutor.datos.nombre.toLowerCase(), values.nombre.toLowerCase()) 
     && compararDato(tutor.datos.apellido.toLowerCase(), values.apellido.toLowerCase())
     && compararArr(tutor.datos.asignaturas, values.asignaturas)
     && checkDia(tutor.horario, values.horario)
-    && checkCalificacion(tutor.datos.calificacion, values.calificacion)
+    && checkCalificacion(tutor.datos.puntaje, values.calificacion)
     ))
   }
 
@@ -255,7 +252,6 @@ const Buscar = () => {
           console.log(err)
         }
       }
-      console.log(tutoresFetch)
     obtenerTutores();
   }, [filtro])
   return(

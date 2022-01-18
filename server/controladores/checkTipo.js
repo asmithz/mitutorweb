@@ -1,7 +1,6 @@
 const { response } = require('express');
 
 const checkTipo = (req, res = response) => {
-    //console.log(req.header('x-token'))
     const token = req.header('x-token');
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');

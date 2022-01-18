@@ -13,6 +13,7 @@ const registrarEstudiante = async (req, res = response) => {
         const estudiante = new Estudiante( req.body );
 
         estudiante.user = estudiante.nombre[0]+estudiante.apellido; 
+        estudiante.user = estudiante.user.toLowerCase()
         estudiante.password = estudiante.rut; 
 
         //encriptar contraseña
@@ -58,8 +59,10 @@ const registrarTutor = async (req, res = response) => {
 
         tutor = new Tutor( req.body );
         tutor.datos.user = tutor.datos.nombre[0]+tutor.datos.apellido; 
+        tutor.datos.user = tutor.datos.user.toLowerCase()
         tutor.datos.password = tutor.datos.rut; 
-        tutor.datos.calificacion = "0";
+        tutor.datos.puntaje = 0;
+        tutor.datos.calificaciones = [0];
         tutor.markModified('datos.password');
 
         //encriptar contraseña
@@ -68,7 +71,7 @@ const registrarTutor = async (req, res = response) => {
 
         tutor.markModified('datos.user');
         tutor.markModified('datos.password');
-        tutor.markModified('datos.calificacion');
+        tutor.markModified('datos.puntaje');
 
         await tutor.save();
         // generar jwt
@@ -91,9 +94,7 @@ const registrarTutor = async (req, res = response) => {
 }
 
 const loginUsuario = async(req, res = response) => {
-
     const { user, password } = req.body;
-    let login = await Tutor.findOne({'datos.user': user});
     try{
         // busca que exista el user en estudiantes
         let estudiante = await Estudiante.findOne({ user });
@@ -171,7 +172,6 @@ const revalidarToken = async(req, res = response) => {
         token
     })
 }
-
 
 module.exports = {
     registrarEstudiante,

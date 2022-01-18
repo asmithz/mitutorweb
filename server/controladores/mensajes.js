@@ -1,6 +1,4 @@
 const { response } = require('express');
-const Estudiante = require('../models/estudiante')
-const Tutor = require('../models/tutor')
 const Mensaje = require('../models/mensaje')
 const ChatVirtual = require('../models/chatvirtual')
 

@@ -13,7 +13,6 @@ const ObtenerUsuarioID = () => {
     useEffect(() => {
         const obtenerID = async () => {
             try{
-                //obtener ID desde el token
                 const usuario = await api_checkTOKEN.get('/checkUser',{
                     headers: {
                     'Content-type': 'application/json',

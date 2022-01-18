@@ -298,20 +298,30 @@ const filtrarTutores = async(req, res = response) => {
 
 const actualizarCalificacion = async(req, res = response) => {
     const tutorID = req.params.id;
-    const {calificacion} = req.body;
+    const {puntaje} = req.body;
     const busqueda = { 'datos._id': tutorID};
     try{
         const tutor = await Tutor.findOne(busqueda);
-
         if(!tutor){
             return res.status(404).json({
                 ok: false,
                 msg: 'no existe ese id'
             });
         }
-        const nueva_calificacion = ((parseFloat(tutor.datos.calificacion) + parseFloat(calificacion)*0.8)/2).toFixed(2)
-        tutor.datos.calificacion = nueva_calificacion
-        tutor.markModified('calificacion')
+        var nueva_calificacion = 0;
+        var contador = 0;
+        var n_cal = parseFloat(puntaje)
+        if(tutor.datos.calificaciones[0] === 0){
+            tutor.datos.calificaciones.pop()
+        }
+        tutor.datos.calificaciones.push(parseFloat(n_cal))
+        for(const nota in tutor.datos.calificaciones){
+            nueva_calificacion += parseFloat(tutor.datos.calificaciones[nota]);
+            contador++
+        }
+        tutor.datos.puntaje = (nueva_calificacion/contador).toFixed(2)
+        tutor.markModified('puntaje')
+        tutor.markModified('calificaciones')
         tutor.save()
         return res.json({
             tutor
@@ -336,7 +346,7 @@ const obtenerCalificacion = async(req, res = response) => {
             });
         }
         const nombre_tutor = tutor.datos.nombre+" "+tutor.datos.apellido
-        const calificacion_tutor = tutor.datos.calificacion
+        const calificacion_tutor = tutor.datos.puntaje
         return res.json({
             nombre_tutor,
             calificacion_tutor

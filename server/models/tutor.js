@@ -44,8 +44,11 @@ const datos_tutor = Schema({
     password: {
         type: String
     },
-    calificacion: {
-        type: String
+    puntaje: {
+        type: Number
+    },
+    calificaciones: {
+        type: [Number]
     }
 });
 
