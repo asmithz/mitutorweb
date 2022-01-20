@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios'
+import DetectarTipoUsuario from '../controllers/DetectarTipoUsuario';
 
 const ZoomAPI = axios.create({
   withCredentials: true, 
@@ -8,31 +9,34 @@ const ZoomAPI = axios.create({
 })
 
 const APIZoom = () => {
-    const [enlace_reunion, setEnlace] = useState("")
+    const verificarTutor = DetectarTipoUsuario().tipo
+    const [enlace_reunion, setEnlace] = useState({})
     const [validarEnlace, setValidacion] = useState(false)
 
     useEffect(() => {
         const generarEnlace = async () => {
-        try{
-            const mi_token = localStorage.getItem('x-token')
-            const response = await ZoomAPI.get("/ZoomMeet", {
-                headers: {
-                    'Content-type': 'application/json',
-                    'x-token': mi_token
+        if(verificarTutor === "tutor"){
+            try{
+                const mi_token = localStorage.getItem('x-token')
+                const response = await ZoomAPI.post("/ZoomMeet", {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'x-token': mi_token
+                    }
+                })
+                if(response.data){
+                    if(!validarEnlace){
+                        setEnlace(response.data)
+                        setValidacion(true)
+                    }
                 }
-            })
-            if(response.data){
-                if(!validarEnlace){
-                    setEnlace(response.data.enlaceZoom)
-                    setValidacion(true)
-                }
+            }catch(error){
+                console.log(error)
             }
-        }catch(error){
-            console.log(error)
-        }
+            }
         }
         generarEnlace();
-    },[])
+    },[verificarTutor])
     
     if(enlace_reunion){
         return enlace_reunion

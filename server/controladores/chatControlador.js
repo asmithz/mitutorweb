@@ -38,13 +38,17 @@ const obtenerChat = async (req, res = response) => {
         const receptor_id = req.params.id
         chats = await ChatVirtual.find({receptor_id})
         if(chats.length === 0){
-            return res.status(400).json({
-                ok: false,
-                msg: "no se encuentran chats"
-            })
+            const chat_id = req.params.id
+            chats = await ChatVirtual.findById(chat_id)
+            if(chats.length === 0){
+                return res.status(400).json({
+                    ok: false,
+                    msg: "no se encuentran chats"
+                })
+            }
         }
     }
-    res.json({
+    return res.json({
         chats
     })
 }

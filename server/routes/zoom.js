@@ -3,6 +3,6 @@ const router = express.Router();
 
 const { zoomMeet } = require('../controladores/zoomControlador')
 
-router.get('/ZoomMeet', zoomMeet);
+router.post('/ZoomMeet', zoomMeet);
 
 module.exports = router;

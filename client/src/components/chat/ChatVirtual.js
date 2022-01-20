@@ -35,9 +35,10 @@ const api_pago = axios.create({
 const ChatVirtual = (props) => {
     const emisorID = ObtenerUsuarioID()
     const emisorTIPO = DetectarTipoUsuario().tipo
-    const enlace_reunion = APIZoom()
+    const datos_reunion = APIZoom()
     const chatID = useLocation().pathname.split("/")[2]
     const [chatDatos, setchatDatos] = useState({})
+    const [chatTitulo, setchatTitulo] = useState("")
     const [mensajes, setMensajes] = useState([])
     const [montoTotal, setMonto] = useState(0)
     const [enlacePago, setEnlace] = useState("")
@@ -84,6 +85,15 @@ const ChatVirtual = (props) => {
                 if(response.data.mensajes){
                     setMensajes(response.data.mensajes)
                 }
+
+                const response_titulo = await api_chat.get("/obtenerChat/"+chatID, {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'x-token': mi_token
+                    }})
+                if(response_titulo.data.chats){
+                    setchatTitulo(response_titulo.data.chats.titulo)
+                }
             }catch(error){
                 console.log(error)
             }
@@ -92,7 +102,7 @@ const ChatVirtual = (props) => {
         }, [mensajes])
 
     const solicitarEnlace = () => {
-        return alert("El enlace de la reunión es: "+enlace_reunion)
+        return alert("El enlace de la reunión es: "+datos_reunion.response.join_url+"\nLa contraseña de la reunión es: "+datos_reunion.response.password+"\nDuración: 1 Hora")
     }
 
     const salirChat = () => {
@@ -131,11 +141,17 @@ const ChatVirtual = (props) => {
             <br/>
             {
                 emisorTIPO === "estudiante" &&
+                <>
                 <h1>Chat Virtual con su tutor</h1>
+                <h4>{chatTitulo}</h4>
+                </>
             }
             {
                 emisorTIPO === "tutor" &&
+                <>
                 <h1>Chat Virtual con su estudiante</h1>
+                <h4>{chatTitulo}</h4>
+                </>
             } 
             <div className="chat-tarjeta">
                 <div className="mensajes">
@@ -158,9 +174,41 @@ const ChatVirtual = (props) => {
                     </ScrollableFeed>
                 </div>
                 <div className="chat-bottom">
+                    
                     {
                         emisorTIPO === "tutor" &&
-                        <BotonFormulario className="btn btn-primary" func={solicitarEnlace} nombre="boton" value="Zoom"/>
+                        <>
+                        <button type="button" className="boton-aceptar" data-bs-toggle="modal" func={solicitarEnlace} nombre="boton" data-bs-target="#exampleModall" data-bs-whatever="@mdo">Zoom</button>
+                        <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabell" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabell">Enlace de Zoom generado con éxito</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    {datos_reunion.response === undefined &&
+                                    <>
+                                    </>
+                                    }
+                                    {datos_reunion.response !== undefined &&
+                                    <>
+                                    <label for="recipient-name" class="col-form-label">Enlace</label>
+                                    <input value={datos_reunion.response.join_url} type="text" class="form-control" id="url" readonly=""/>
+                                    <label for="recipient-name" class="col-form-label">Contraseña</label>
+                                    <input value={datos_reunion.response.password} type="text" class="form-control" id="url" readonly=""/>
+                                    <label for="recipient-name" class="col-form-label">Duración</label>
+                                    <input value="1 hour" type="text" class="form-control" id="url" readonly=""/>
+                                    </>
+                                    }
+                                </div>
+                            </div>
+                            
+                            </div>
+                        </div>
+                        </div>
+                        </>
                     }
                     {
                         emisorTIPO === "estudiante" &&
@@ -204,7 +252,7 @@ const ChatVirtual = (props) => {
                 emisorTIPO === "tutor" &&
         <>
                         <button type="button" className="boton-aceptar" data-bs-toggle="modal" func={props.func} nombre="boton" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Generar Pago</button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">

@@ -10,6 +10,6 @@ const { verificarChat } = require('../controladores/chatControlador')
 router.post('/agregarChat/:id', agregarChat);
 router.get('/obtenerChat/:id', obtenerChat);
 router.get('/verificarChat/:id', verificarChat);
-router.delete('/eliminarChat/:id', eliminarChat)
+router.delete('/eliminarChat/:id', eliminarChat);
 
 module.exports = router;
