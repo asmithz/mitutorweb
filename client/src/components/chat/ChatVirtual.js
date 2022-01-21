@@ -1,7 +1,6 @@
 import './ChatVirtual.css'
 import { Formik, Form, Field, ErrorMessage, isObject } from 'formik';
 import BotonFormulario from '../botones/BotonFormulario';
-import ModalPago from '../botones/ModalPago'
 import io from 'socket.io-client'
 import ObtenerUsuarioID from '../controllers/ObtenerUsuarioID';
 import { useEffect, useState } from 'react';

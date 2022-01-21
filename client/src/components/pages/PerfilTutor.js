@@ -158,7 +158,6 @@ const MostrarDatos = (props) => {
 }
 
 const PerfilTutor = (props) => {
-
     const mi_token = localStorage.getItem('x-token')
     const tutorID = ObtenerUsuarioID();
     const [borrarTutor, setBorrar] = useState(false);

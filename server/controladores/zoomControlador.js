@@ -4,11 +4,12 @@ const rp = require('request-promise')
 
 const zoomMeet = async (req, res = response) => {
     console.log("iniciado...")
-    const email = "ariel.inst97@gmail.com"
+    // limite de 100 enlaces por dia
+    const email = "arielsmithzerega@gmail.com"
     const config = {
         production:{
-            APIKey: 'g-cFrq90T2CJeL0PuC1gUA',
-            APISecret: 'T6F1UwKS2EPSiN8TwsiYY3guUednoZ0Uxp79'
+            APIKey: 'Xu-sGxVzQX6viOa0u-usPg',
+            APISecret: 't3GOcKIMFA4M2U3YBgoVGSzLQ2GXgoStXS4k'
         }
     }
     const payload = {

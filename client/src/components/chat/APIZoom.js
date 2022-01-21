@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios'
 import DetectarTipoUsuario from '../controllers/DetectarTipoUsuario';
+import axios from 'axios'
 
 const ZoomAPI = axios.create({
   withCredentials: true, 

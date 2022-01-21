@@ -13,11 +13,8 @@ const api = axios.create({
 })
 
 const EditarDatos = (props) => {
-
     const mi_token = localStorage.getItem('x-token')
     const estudianteID = ObtenerUsuarioID()
-    
-    
     const actualizarEstudiante = async (datos) => {
         try{
             //actualizar 
