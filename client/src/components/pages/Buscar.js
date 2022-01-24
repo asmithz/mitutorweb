@@ -118,6 +118,10 @@ const TarjetaTutor = (props) => {
   const mi_token = localStorage.getItem('x-token')
   const estudianteID = ObtenerUsuarioID()
   const enviarSolicitud = async (id_tutor) => {
+    if(!estudianteID){
+      alert("Debe iniciar sesión para solicitar una tutoría")
+      return
+    }
     try{
       const response = await api_peticion.post('/agregarPeticion', 
                 { estudiante_id: estudianteID, tutor_id: id_tutor }, 
@@ -133,7 +137,7 @@ const TarjetaTutor = (props) => {
         alert("Ya realizó una solicitud de chat virtual con este tutor anteriormente.")
       }
       else{
-        alert("Usted realizó una solicitud de chat virtual.")
+	alert("Usted realizó una solicitud de chat virtual.")
       }
     }catch(error){
       console.log(error)
