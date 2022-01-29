@@ -5,11 +5,11 @@ const rp = require('request-promise')
 const zoomMeet = async (req, res = response) => {
     console.log("iniciado...")
     // limite de 100 enlaces por dia
-    const email = "arielsmithzerega@gmail.com"
+    const email = "youremail@email.com"
     const config = {
         production:{
-            APIKey: 'Xu-sGxVzQX6viOa0u-usPg',
-            APISecret: 't3GOcKIMFA4M2U3YBgoVGSzLQ2GXgoStXS4k'
+            APIKey: 'yourAPIKey',
+            APISecret: 'yourAPISecret'
         }
     }
     const payload = {
@@ -22,7 +22,7 @@ const zoomMeet = async (req, res = response) => {
             method: "POST",
             uri: "https://api.zoom.us/v2/users/" + email + "/meetings",
             body: {
-                topic: "Tutoria MiTutorWeb",
+                topic: "yourTopic",
                 type: 1,
                 duration: 60,
                 settings: {
